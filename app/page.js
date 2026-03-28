@@ -121,7 +121,10 @@ export default function Home() {
 
             {/* Project 3 */}
             <div className="border border-gray-800 p-6 rounded-lg hover:border-blue-500 transition">
-              <h3 className="text-2xl font-bold mb-3">Bitcoin Investing Assistant</h3>
+              <h3 className="text-2xl font-bold mb-3">
+              <a href="https://link.springer.com/chapter/10.1007/978-3-031-31164-2_36" target="_blank" className="hover:text-blue-400 transition">
+                FinRL Crypto Trading Agent with Sentiment Analysis
+              </a>
               <p className="text-gray-400 mb-4">
                 Published in ICIVC 2021 (Springer). Outperformed benchmark trading strategies by 10% using FinRL-based RL agent. 
                 Achieved 14% accuracy gain with FinBERT sentiment pipelines for financial NLP.
