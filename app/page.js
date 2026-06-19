@@ -3,6 +3,8 @@ import ChatWidget from './components/ChatWidget';
 import TerminalButton from './components/TerminalButton';
 import ScrollReveal from './components/ScrollReveal';
 import EmailButton from './components/EmailButton';
+import HeroTyping from './components/HeroTyping';
+import GitHubActivity from './components/GitHubActivity';
 
 /* ─── SVG Visualizations ────────────────────────────── */
 
@@ -287,9 +289,12 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal delay={60}>
-            <h1 className="text-7xl font-bold tracking-tight text-white mb-6 leading-none">
+            <h1 className="text-7xl font-bold tracking-tight text-white mb-4 leading-none">
               Nirman Taterh
             </h1>
+            <p className="text-lg mb-6" style={{ color: 'var(--fg-muted)' }}>
+              <HeroTyping />
+            </p>
           </ScrollReveal>
 
           <ScrollReveal delay={120}>
@@ -340,6 +345,7 @@ export default function Home() {
                 GitHub ↗
               </a>
             </div>
+            <GitHubActivity />
             <p className="text-xs text-zinc-600 mt-5 font-mono flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse inline-block" />
               ai assistant available — ask anything about me via the chat widget ↘
