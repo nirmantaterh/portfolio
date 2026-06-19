@@ -72,7 +72,7 @@ export default function ChatWidget() {
           <div className="px-4 py-3 border-b border-gray-800 flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
             <span className="text-white text-sm font-semibold">Ask about Nirman</span>
-            <span className="ml-auto text-xs text-gray-500">powered by Claude</span>
+            <span className="ml-auto text-xs text-gray-500">powered by Groq</span>
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 space-y-3">
