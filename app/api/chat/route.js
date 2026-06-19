@@ -1,27 +1,21 @@
-let repoCache = null;
-let repoCacheAt = 0;
-
 async function getGitHubRepos() {
-  if (repoCache && Date.now() - repoCacheAt < 10 * 60 * 1000) return repoCache;
   try {
+    // next: revalidate uses Next.js built-in CDN cache — survives serverless cold starts
     const res = await fetch(
       'https://api.github.com/users/nirmantaterh/repos?sort=updated&per_page=12&type=public',
-      { headers: { 'User-Agent': 'nirman-portfolio' } }
+      { headers: { 'User-Agent': 'nirman-portfolio' }, next: { revalidate: 600 } }
     );
-    if (!res.ok) return repoCache ?? [];
+    if (!res.ok) return [];
     const data = await res.json();
-    repoCache = data.map(r => ({
+    return data.map(r => ({
       name: r.name,
       desc: r.description || '',
       lang: r.language || '',
       stars: r.stargazers_count,
       updated: r.pushed_at?.slice(0, 10),
-      url: r.html_url,
     }));
-    repoCacheAt = Date.now();
-    return repoCache;
   } catch {
-    return repoCache ?? [];
+    return [];
   }
 }
 
@@ -68,7 +62,15 @@ Currently interviewing. Response within 24h.
 **Off-topic** — Redirect to professional topics. Never invent facts about Nirman not listed here.`;
 
 export async function POST(req) {
-  const { messages } = await req.json();
+  const body = await req.json();
+  // Sanitize: cap history, enforce roles, strip control chars, limit message length
+  const messages = (body.messages ?? [])
+    .slice(-20)
+    .filter(m => m.role === 'user' || m.role === 'assistant')
+    .map(m => ({
+      role: m.role,
+      content: String(m.content ?? '').replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g, '').slice(0, 2000),
+    }));
 
   const repos = await getGitHubRepos();
   const repoSection = repos.length > 0
@@ -103,7 +105,7 @@ export async function POST(req) {
             body: JSON.stringify({
               contents: geminiMessages,
               systemInstruction: { parts: [{ text: SYSTEM }] },
-              tools: [{ google_search: {} }],
+              tools: [{ googleSearch: {} }],
               generationConfig: {
                 maxOutputTokens: 500,
                 temperature: 0.7,
