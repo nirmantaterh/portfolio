@@ -1,4 +1,3 @@
-// ponytail: module-level cache, TTL 10min — serverless instances reuse it across warm invocations
 let repoCache = null;
 let repoCacheAt = 0;
 
@@ -26,16 +25,16 @@ async function getGitHubRepos() {
   }
 }
 
-const BASE_SYSTEM = `You are Nirman Taterh's AI portfolio assistant. You operate in multiple modes depending on the request.
+const BASE_SYSTEM = `You are Nirman Taterh's AI portfolio assistant. You have access to Google Search — use it when asked about current AI trends, recent papers, or anything requiring up-to-date information. For questions about Nirman specifically, use the facts below.
 
 ## WHO IS NIRMAN
 AI-native builder. MS Data Science @ NYU (GPA 3.86/4.0). Brooklyn, NY. 3+ years shipping production ML systems across NLP, RAG, recommendation, and RL.
 
 ## EXPERIENCE
-- Data Science Intern LLM/NLP @ Johnson & Johnson (Mar–Aug 2025): +18% biomedical model accuracy, -30% preprocessing time, +25% team velocity via AI coding workflows (Cursor/Copilot).
-- Conversational AI Developer @ Miko (Nov 2024–Jan 2025): -20% LLM hallucinations across 5K+ robot interactions by redesigning RAG pipelines and tool-calling interfaces. +25% system throughput. Mentored 3 devs.
-- NLP Intern @ Miko (Jun–Sep 2022): +25% multilingual classification accuracy, +35% response quality. Owned fine-tuning of SIEBERT transformer pipelines end-to-end.
-- Music Recommendation Engineer @ Paramount/Last.fm (Sep 2020–Feb 2021): +50% engagement for 1.9M users with hybrid recommender. -30% inference latency with distributed training across 4 GPUs.
+- Data Science Intern LLM/NLP @ Johnson & Johnson (Mar–Aug 2025): +18% biomedical model accuracy, -30% preprocessing time, +25% team velocity via AI coding workflows.
+- Conversational AI Developer @ Miko (Nov 2024–Jan 2025): -20% LLM hallucinations across 5K+ robot interactions, +25% system throughput. Mentored 3 devs.
+- NLP Intern @ Miko (Jun–Sep 2022): +25% multilingual classification accuracy, +35% response quality.
+- Music Recommendation Engineer @ Paramount/Last.fm (Sep 2020–Feb 2021): +50% engagement for 1.9M users, -30% inference latency with distributed training across 4 GPUs.
 
 ## SKILLS
 LLM Systems: PyTorch, HuggingFace, DeBERTa-v3, LoRA/PEFT, BGE-M3, ColBERT
@@ -45,10 +44,10 @@ Infrastructure: Docker, AWS, Spark, MLflow, Kubernetes
 Languages: Python, Go, TypeScript, React, SQL
 
 ## PROJECTS
-1. Prosodic Encoding in LLMs — NLP research, pending publication ACL-tier. PyTorch transformer encoder pipeline.
-2. Large-Scale Review Trust Modeling — 97.7% recall on 26.7M reviews. DeBERTa fine-tuning reduced MAE 1.47→0.46.
-3. FinRL Crypto Trading Agent — Published Springer ICIVC 2021. +10% vs benchmark. +14% accuracy with FinBERT.
-4. AI Gaming Platform Optimizer — +20% engagement, +25% content relevance. RL with LangGraph + Kubernetes/Spark.
+1. Prosodic Encoding in LLMs — NLP research, pending publication ACL-tier.
+2. Large-Scale Review Trust Modeling — 97.7% recall on 26.7M reviews. DeBERTa MAE 1.47→0.46.
+3. FinRL Crypto Trading Agent — Published Springer ICIVC 2021. +10% vs benchmark.
+4. AI Gaming Platform Optimizer — +20% engagement. RL with LangGraph + Kubernetes.
 
 ## CONTACT
 nt2613@nyu.edu | linkedin.com/in/nirman-taterh | github.com/nirmantaterh
@@ -58,53 +57,60 @@ Currently interviewing. Response within 24h.
 
 ## RESPONSE MODES
 
-**Standard Q&A** — 2–4 sentences, direct and specific. When discussing technical topics, explain WHY decisions were made — tradeoffs, alternatives considered, failure modes. Never just list facts.
+**Standard Q&A** — 2–4 sentences. Explain WHY decisions were made, tradeoffs, failure modes. Never just list facts.
 
-**Technical deep dive** (architecture, model choices, design decisions) — Up to 8 sentences. Reference real constraints and what was learned.
+**Technical deep dive** — Up to 8 sentences. Reference real constraints and learnings.
 
-**PITCH_REQUEST mode** — Message starts with "PITCH_REQUEST:". Write exactly 3 short paragraphs:
-  P1: Direct skills match — cite specific tools/metrics matching what they mentioned
-  P2: Evidence of production impact at scale — real numbers
-  P3: Signal of velocity and collaboration
+**PITCH_REQUEST mode** — Starts with "PITCH_REQUEST:". Write exactly 3 paragraphs: skills match → production impact → velocity signal.
 
-**Off-topic** — Redirect to professional topics. Never invent information not listed here.`;
+**Current AI topics** — Use Google Search to give up-to-date answers about AI trends, papers, tools, and industry news. Connect to Nirman's work where relevant.
+
+**Off-topic** — Redirect to professional topics. Never invent facts about Nirman not listed here.`;
 
 export async function POST(req) {
   const { messages } = await req.json();
 
   const repos = await getGitHubRepos();
   const repoSection = repos.length > 0
-    ? `\n\n## GITHUB REPOSITORIES (live — most recently updated first)\n${repos.map(r =>
-        `- **${r.name}**${r.desc ? ': ' + r.desc : ''} [${r.lang || 'misc'}] ★${r.stars} · last push: ${r.updated} · ${r.url}`
+    ? `\n\n## GITHUB REPOS (live)\n${repos.map(r =>
+        `- ${r.name}${r.desc ? ': ' + r.desc : ''} [${r.lang}] ★${r.stars} · ${r.updated}`
       ).join('\n')}`
     : '';
 
   const SYSTEM = BASE_SYSTEM + repoSection;
 
+  // Convert messages from OpenAI format to Gemini format
+  const geminiMessages = messages.map(m => ({
+    role: m.role === 'assistant' ? 'model' : 'user',
+    parts: [{ text: m.content }],
+  }));
+
   const encoder = new TextEncoder();
   const stream = new ReadableStream({
     async start(controller) {
       try {
-        if (!process.env.GROQ_API_KEY) {
+        if (!process.env.GEMINI_API_KEY) {
           controller.enqueue(encoder.encode('Chat unavailable: API key not configured.'));
           controller.close();
           return;
         }
 
-        const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            model: 'llama-3.3-70b-versatile',
-            messages: [{ role: 'system', content: SYSTEM }, ...messages],
-            max_tokens: 500,
-            stream: true,
-            temperature: 0.7,
-          }),
-        });
+        const res = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:streamGenerateContent?alt=sse&key=${process.env.GEMINI_API_KEY}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: geminiMessages,
+              systemInstruction: { parts: [{ text: SYSTEM }] },
+              tools: [{ google_search: {} }],
+              generationConfig: {
+                maxOutputTokens: 500,
+                temperature: 0.7,
+              },
+            }),
+          }
+        );
 
         if (!res.ok) {
           const err = await res.text();
@@ -125,10 +131,11 @@ export async function POST(req) {
           buffer = lines.pop() ?? '';
           for (const line of lines) {
             if (!line.startsWith('data: ')) continue;
-            const data = line.slice(6);
-            if (data === '[DONE]') continue;
+            const data = line.slice(6).trim();
+            if (!data || data === '[DONE]') continue;
             try {
-              const text = JSON.parse(data).choices?.[0]?.delta?.content;
+              const json = JSON.parse(data);
+              const text = json.candidates?.[0]?.content?.parts?.[0]?.text;
               if (text) controller.enqueue(encoder.encode(text));
             } catch {}
           }
