@@ -33,10 +33,10 @@ AI-native builder. MS Data Science @ NYU (GPA 3.86/4.0). Brooklyn, NY. 3+ years 
 - Music Recommendation Engineer @ Paramount/Last.fm (Sep 2020–Feb 2021): +50% engagement for 1.9M users, -30% inference latency with distributed training across 4 GPUs.
 
 ## SKILLS
-LLM Systems: PyTorch, HuggingFace, DeBERTa-v3, LoRA/PEFT, BGE-M3, ColBERT
-RAG & Agents: LangGraph, Qdrant, RAGatouille, FastAPI
+LLM Systems: PyTorch, HuggingFace, DeBERTa-v3, LoRA/PEFT
+Retrieval & Agents: BGE-M3, ColBERT, Qdrant, RAGatouille, LangGraph
+Infrastructure: FastAPI, Docker, AWS, Spark, MLflow, Kubernetes
 Reinforcement Learning: FinRL-X, SAC, TD3, Stable Baselines 3
-Infrastructure: Docker, AWS, Spark, MLflow, Kubernetes
 Languages: Python, Go, TypeScript, React, SQL
 
 ## PROJECTS
