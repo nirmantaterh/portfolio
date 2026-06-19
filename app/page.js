@@ -2,6 +2,7 @@ import Navbar from './components/Navbar';
 import ChatWidget from './components/ChatWidget';
 import TerminalButton from './components/TerminalButton';
 import ScrollReveal from './components/ScrollReveal';
+import EmailButton from './components/EmailButton';
 
 /* ─── SVG Visualizations ────────────────────────────── */
 
@@ -521,10 +522,9 @@ export default function Home() {
               actively interviewing · response within 24h
             </p>
             <div className="flex flex-wrap gap-3 items-center">
-              <a href="mailto:nt2613@nyu.edu?subject=Opportunity%20for%20Nirman%20Taterh"
-                className="px-7 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold text-sm transition-colors duration-200">
+              <EmailButton className="px-7 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold text-sm transition-colors duration-200">
                 Email Me
-              </a>
+              </EmailButton>
               {[
                 { label: 'LinkedIn', href: 'https://www.linkedin.com/in/nirman-taterh/' },
                 { label: 'GitHub', href: 'https://github.com/nirmantaterh' },
