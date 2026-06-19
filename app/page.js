@@ -211,12 +211,11 @@ const CAPABILITIES = [
 ];
 
 const EXPLORING = [
-  { topic: 'World Models', sub: 'V-JEPA and embodied learning architectures', tag: 'Research' },
-  { topic: 'Agentic Evaluation', sub: 'Robust evals for multi-step AI agents', tag: 'Eval' },
-  { topic: 'Long Context RAG', sub: 'Beyond chunk-and-retrieve at production scale', tag: 'RAG' },
-  { topic: 'Test-Time Compute', sub: 'Scaling inference-time reasoning with search', tag: 'Inference' },
-  { topic: 'Loop Engineering', sub: 'AI coding workflow and agentic pipeline automation', tag: 'Dev' },
-  { topic: 'Speculative Decoding', sub: 'Inference optimization for production LLM serving', tag: 'Systems' },
+  { topic: 'Agentic Workflows', sub: 'Autonomous planning and reasoning systems', tag: 'Agents' },
+  { topic: 'Multi-Agent Systems', sub: 'Collaborative agents for research and knowledge work', tag: 'Agents' },
+  { topic: 'Agent Evaluation', sub: 'Evaluation infrastructure for reasoning models and agents', tag: 'Eval' },
+  { topic: 'World Models', sub: 'Long-horizon planning and simulation environments', tag: 'Research' },
+  { topic: 'Memory & Retrieval', sub: 'Production agents combining memory, retrieval, and tool use', tag: 'Systems' },
 ];
 
 const EXPERIENCE = [
@@ -366,12 +365,12 @@ export default function Home() {
             <Heading mono="01 — about">Background</Heading>
             <div className="grid md:grid-cols-2 gap-12">
               <p className="text-zinc-400 leading-relaxed">
-                I build production ML and AI systems. Three years across NLP, RAG, recommendation, and RL —
-                always owning the full stack from data to evaluation to shipping.
+                I ship AI systems that work in production—not just in notebooks.
               </p>
               <p className="text-zinc-400 leading-relaxed">
-                Currently pursuing MS in Data Science at NYU (GPA 3.86/4.0). I prototype fast, evaluate
-                rigorously, and move from experiment to production without losing fidelity.
+                My work spans the entire AI lifecycle, from data quality and evaluation to inference
+                optimization and deployment. Before I design an architecture, I ask what breaks it.
+                Before I fine-tune a model, I build the evaluation harness.
               </p>
             </div>
           </ScrollReveal>
