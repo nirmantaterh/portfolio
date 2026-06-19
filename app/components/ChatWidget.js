@@ -141,7 +141,7 @@ export default function ChatWidget() {
                 {intent}
               </span>
             )}
-            <span className="ml-auto text-xs" style={{ color: 'var(--fg-subtle)' }}>Groq · llama-3.3-70b</span>
+            <span className="ml-auto text-xs font-mono" style={{ color: 'var(--fg-subtle)' }}>Gemini 3.5 Flash · ⌖ Search</span>
           </div>
 
           {/* Messages */}
