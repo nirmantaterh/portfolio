@@ -95,10 +95,10 @@ function TradingCurveViz() {
       <line x1="14" y1="78" x2="174" y2="78" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
       <line x1="14" y1="8" x2="14" y2="78" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
       <path d={baseArea} fill="rgba(255,255,255,0.02)" />
-      <path d={agentArea} fill="url(#agent-grad)" />
+      <path className="cb-rl-area" d={agentArea} fill="url(#agent-grad)" />
       <path d={baselinePath} fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" strokeDasharray="4,3" />
-      <path d={agentPath} fill="none" stroke="rgba(59,130,246,0.9)" strokeWidth="2" strokeLinecap="round" />
-      <circle cx="174" cy="13" r="3" fill="rgba(59,130,246,0.9)" />
+      <path className="cb-rl-line" d={agentPath} fill="none" stroke="rgba(59,130,246,0.9)" strokeWidth="2" strokeLinecap="round" />
+      <circle className="cb-rl-fill" cx="174" cy="13" r="3" fill="rgba(59,130,246,0.9)" />
       <text x="100" y="87" textAnchor="middle" fill="rgba(255,255,255,0.18)" fontSize="6" fontFamily="monospace">time steps →</text>
       <text x="177" y="62" fill="rgba(255,255,255,0.25)" fontSize="6" fontFamily="monospace">B/H</text>
       <text x="177" y="16" fill="rgba(59,130,246,0.8)" fontSize="6" fontFamily="monospace">RL</text>

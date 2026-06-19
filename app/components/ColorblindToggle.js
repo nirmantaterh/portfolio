@@ -20,16 +20,17 @@ export default function ColorblindToggle() {
   return (
     <button
       onClick={toggle}
-      title={`${on ? 'Disable' : 'Enable'} colorblind-friendly mode`}
-      className={`w-8 h-8 flex items-center justify-center rounded-md border text-xs font-mono transition-colors ${
-        on
-          ? 'border-blue-500 text-blue-400 bg-blue-500/10'
-          : 'border-zinc-800 text-zinc-500 hover:text-white hover:border-zinc-600'
-      }`}
+      title={on ? 'Colorblind mode ON — click to disable' : 'Enable colorblind-friendly palette'}
       aria-label="Toggle colorblind mode"
       aria-pressed={on}
+      className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-semibold transition-all duration-200"
+      style={{
+        background: on ? 'rgba(96,165,250,0.15)' : 'rgba(255,255,255,0.08)',
+        color: on ? '#93c5fd' : '#e4e4e7',
+        border: on ? '1px solid rgba(96,165,250,0.5)' : '1px solid rgba(255,255,255,0.15)',
+      }}
     >
-      CV
+      ◑ {on ? 'CV: ON' : 'CV'}
     </button>
   );
 }

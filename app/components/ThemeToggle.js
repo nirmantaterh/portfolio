@@ -21,10 +21,15 @@ export default function ThemeToggle() {
     <button
       onClick={toggle}
       title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-      className="w-8 h-8 flex items-center justify-center rounded-md border border-zinc-800 text-zinc-500 hover:text-white hover:border-zinc-600 transition-colors text-sm"
       aria-label="Toggle theme"
+      className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-semibold transition-all duration-200"
+      style={{
+        background: 'rgba(255,255,255,0.08)',
+        color: '#e4e4e7',
+        border: '1px solid rgba(255,255,255,0.15)',
+      }}
     >
-      {theme === 'dark' ? '☀' : '☾'}
+      {theme === 'dark' ? '☀ Light' : '☾ Dark'}
     </button>
   );
 }
