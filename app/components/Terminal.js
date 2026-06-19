@@ -222,8 +222,8 @@ export default function Terminal({ onClose }) {
       onClick={onClose}
     >
       <div
-        className="w-full max-w-3xl flex flex-col rounded-2xl border border-white/[0.08] shadow-2xl"
-        style={{ height: 520, background: '#0a0a0c', fontFamily: 'var(--font-geist-mono), monospace' }}
+        className="w-full max-w-3xl flex flex-col rounded-2xl border terminal-border shadow-2xl"
+        style={{ height: 520, background: 'var(--modal-bg)', fontFamily: 'var(--font-geist-mono), monospace', borderColor: 'rgba(255,255,255,0.08)' }}
         onClick={e => e.stopPropagation()}
       >
         {/* Title bar */}
@@ -250,7 +250,7 @@ export default function Terminal({ onClose }) {
                 </div>
               );
             if (entry.type === 'error')
-              return <div key={i} className="text-red-400 text-xs ml-5 mt-1">{entry.text} — try &quot;help&quot;</div>;
+              return <div key={i} className="text-red-400 text-xs ml-5 mt-1" style={{ color: 'var(--cb-danger, #f87171)' }}>{entry.text} — try &quot;help&quot;</div>;
             if (entry.type === 'output')
               return (
                 <div key={i} className="ml-5 mt-1 space-y-0.5">

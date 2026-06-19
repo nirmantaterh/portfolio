@@ -50,17 +50,25 @@ function FraudNetworkViz() {
     <svg viewBox="0 0 200 148" className="w-full h-full opacity-80">
       {nodes.map((n, i) => (
         <line key={i} x1={cx} y1={cy} x2={n.x} y2={n.y}
+          className={n.fraud ? 'cb-danger-line' : ''}
           stroke={n.fraud ? 'rgba(239,68,68,0.25)' : 'rgba(59,130,246,0.12)'} strokeWidth="1" />
       ))}
       {nodes.map((n, i) => (
-        <circle key={i} cx={n.x} cy={n.y} r={5}
-          fill={n.fraud ? 'rgba(239,68,68,0.75)' : 'rgba(59,130,246,0.35)'}
-          stroke={n.fraud ? 'rgba(239,68,68,0.9)' : 'rgba(59,130,246,0.5)'} strokeWidth="1" />
+        n.fraud ? (
+          /* Diamond shape for fraud nodes — shape+color dual encoding for colorblind safety */
+          <polygon key={i}
+            className="cb-danger cb-danger-stroke"
+            points={`${n.x},${n.y-7} ${n.x+7},${n.y} ${n.x},${n.y+7} ${n.x-7},${n.y}`}
+            fill="rgba(239,68,68,0.75)" stroke="rgba(239,68,68,0.9)" strokeWidth="1" />
+        ) : (
+          <circle key={i} cx={n.x} cy={n.y} r={5}
+            fill="rgba(59,130,246,0.35)" stroke="rgba(59,130,246,0.5)" strokeWidth="1" />
+        )
       ))}
       <circle cx={cx} cy={cy} r={11} fill="rgba(59,130,246,0.12)" stroke="rgba(59,130,246,0.7)" strokeWidth="1.5" />
       <text x={cx} y={cy + 3} textAnchor="middle" fill="rgba(255,255,255,0.6)" fontSize="6" fontFamily="monospace">model</text>
-      <circle cx={20} cy={132} r={4} fill="rgba(239,68,68,0.75)" />
-      <text x={28} y={135} fill="rgba(255,255,255,0.3)" fontSize="6.5" fontFamily="monospace">fraud</text>
+      <polygon className="cb-danger" points="20,126 27,132 20,138 13,132" fill="rgba(239,68,68,0.75)" />
+      <text x={31} y={135} fill="rgba(255,255,255,0.3)" fontSize="6.5" fontFamily="monospace">fraud ◆</text>
       <circle cx={72} cy={132} r={4} fill="rgba(59,130,246,0.35)" />
       <text x={80} y={135} fill="rgba(255,255,255,0.3)" fontSize="6.5" fontFamily="monospace">legitimate</text>
     </svg>
@@ -363,7 +371,7 @@ export default function Home() {
       <hr className="section-divider" />
 
       {/* ── Experience ── */}
-      <section id="experience" className="text-white py-20" style={{ background: 'rgba(255,255,255,0.012)' }}>
+      <section id="experience" className="text-white py-20" style={{ background: 'var(--section-alt-bg)' }}>
         <div className="max-w-6xl mx-auto px-6">
           <ScrollReveal>
             <Heading mono="02 — experience">Work History</Heading>
@@ -407,7 +415,7 @@ export default function Home() {
             {CAPABILITIES.map((cap, i) => (
               <ScrollReveal key={cap.name} delay={i * 70}>
                 <div className="card-lift border border-zinc-800/80 rounded-xl p-5 h-full"
-                  style={{ background: 'rgba(255,255,255,0.015)' }}>
+                  style={{ background: 'var(--card-bg)' }}>
                   <h3 className="text-white font-semibold text-sm mb-2">{cap.name}</h3>
                   <p className="text-zinc-600 text-xs leading-relaxed mb-4">{cap.desc}</p>
                   <div className="flex flex-wrap gap-1.5">
@@ -427,7 +435,7 @@ export default function Home() {
       <hr className="section-divider" />
 
       {/* ── Projects ── */}
-      <section id="projects" className="text-white py-20" style={{ background: 'rgba(255,255,255,0.012)' }}>
+      <section id="projects" className="text-white py-20" style={{ background: 'var(--section-alt-bg)' }}>
         <div className="max-w-6xl mx-auto px-6">
           <ScrollReveal>
             <Heading mono="04 — projects">Featured Work</Heading>
@@ -438,9 +446,9 @@ export default function Home() {
               return (
                 <ScrollReveal key={p.title} delay={i * 70}>
                   <div className="card-lift border border-zinc-800/80 rounded-xl overflow-hidden h-full flex flex-col"
-                    style={{ background: 'rgba(255,255,255,0.015)' }}>
+                    style={{ background: 'var(--card-bg)' }}>
                     {/* Visualization */}
-                    <div className="border-b border-zinc-800/60 relative" style={{ background: 'rgba(0,0,0,0.3)', height: 160 }}>
+                    <div className="border-b border-zinc-800/60 relative" style={{ background: 'var(--viz-bg)', height: 160 }}>
                       <div className="absolute inset-0 p-4 flex items-center justify-center">
                         <Viz />
                       </div>
@@ -485,7 +493,7 @@ export default function Home() {
             {EXPLORING.map((item, i) => (
               <ScrollReveal key={item.topic} delay={i * 60}>
                 <div className="card-lift border border-zinc-800/60 rounded-xl p-4 flex flex-col gap-2 group"
-                  style={{ background: 'rgba(255,255,255,0.012)' }}>
+                  style={{ background: 'var(--section-alt-bg)' }}>
                   <div className="flex items-start justify-between gap-2">
                     <h3 className="text-white text-sm font-semibold group-hover:text-blue-300 transition-colors">{item.topic}</h3>
                     <span className="text-xs font-mono text-zinc-700 border border-zinc-800 px-1.5 py-0.5 rounded shrink-0">{item.tag}</span>
@@ -501,7 +509,7 @@ export default function Home() {
       <hr className="section-divider" />
 
       {/* ── Contact ── */}
-      <section id="contact" className="text-white py-20" style={{ background: 'rgba(255,255,255,0.012)' }}>
+      <section id="contact" className="text-white py-20" style={{ background: 'var(--section-alt-bg)' }}>
         <div className="max-w-6xl mx-auto px-6">
           <ScrollReveal>
             <Heading mono="06 — contact">Get In Touch</Heading>

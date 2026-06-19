@@ -73,7 +73,7 @@ export default function ChatWidget() {
       </div>
 
       {open && (
-        <div className="fixed bottom-24 right-6 z-50 w-80 sm:w-96 bg-gray-950 border border-gray-700 rounded-xl shadow-2xl flex flex-col" style={{ height: 420 }}>
+        <div className="fixed bottom-24 right-6 z-50 w-80 sm:w-96 rounded-xl shadow-2xl flex flex-col border" style={{ height: 420, background: 'var(--modal-bg)', borderColor: 'rgba(128,128,128,0.15)' }}>
           <div className="px-4 py-3 border-b border-gray-800 flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
             <span className="text-white text-sm font-semibold">Ask about Nirman</span>
