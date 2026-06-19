@@ -27,6 +27,12 @@ export async function POST(req) {
   const stream = new ReadableStream({
     async start(controller) {
       try {
+        if (!process.env.GROQ_API_KEY) {
+          controller.enqueue(encoder.encode('Chat unavailable: API key not configured.'));
+          controller.close();
+          return;
+        }
+
         const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
           method: 'POST',
           headers: {
@@ -40,6 +46,13 @@ export async function POST(req) {
             stream: true,
           }),
         });
+
+        if (!res.ok) {
+          const err = await res.text();
+          controller.enqueue(encoder.encode(`Error ${res.status}: ${err}`));
+          controller.close();
+          return;
+        }
 
         const reader = res.body.getReader();
         const decoder = new TextDecoder();
