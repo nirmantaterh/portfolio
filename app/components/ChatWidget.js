@@ -31,7 +31,6 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [chipsVisible, setChipsVisible] = useState(true);
   const [pitchMode, setPitchMode] = useState(false);
   const [pitchInput, setPitchInput] = useState('');
   const bottomRef = useRef(null);
@@ -57,7 +56,6 @@ export default function ChatWidget() {
     const content = text || input.trim();
     if (!content || loading) return;
 
-    setChipsVisible(false);
     setPitchMode(false);
     const userMsg = { role: 'user', content };
     const history = [...messages, userMsg];
@@ -101,7 +99,7 @@ export default function ChatWidget() {
   }
 
   function handleChip(chip) {
-    if (chip.pitch) { setPitchMode(true); setChipsVisible(false); return; }
+    if (chip.pitch) { setPitchMode(true); return; }
     send(chip.msg);
   }
 
@@ -163,8 +161,8 @@ export default function ChatWidget() {
               </div>
             ))}
 
-            {/* Suggested chips */}
-            {chipsVisible && messages.length === 1 && (
+            {/* Suggested chips — appear after every completed assistant message */}
+            {!loading && !pitchMode && messages.length > 0 && messages[messages.length - 1].role === 'assistant' && messages[messages.length - 1].content && (
               <div className="space-y-1.5 pt-1">
                 {chips.map((chip, i) => (
                   <button
