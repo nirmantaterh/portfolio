@@ -186,22 +186,22 @@ const CAPABILITIES = [
   {
     name: 'LLM Systems',
     desc: 'Fine-tuning, alignment, and production deployment of transformer-based models.',
-    tools: ['PyTorch', 'HuggingFace', 'DeBERTa-v3', 'LoRA/PEFT', 'BGE-M3'],
+    tools: ['PyTorch', 'HuggingFace', 'DeBERTa-v3', 'LoRA/PEFT'],
   },
   {
     name: 'Retrieval & Agents',
-    desc: 'Production RAG pipelines, agentic orchestration, and vector retrieval at scale.',
-    tools: ['LangGraph', 'Qdrant', 'RAGatouille', 'ColBERT'],
+    desc: 'Production RAG pipelines, agentic orchestration, embedding models, and vector retrieval at scale.',
+    tools: ['BGE-M3', 'ColBERT', 'Qdrant', 'RAGatouille', 'LangGraph'],
   },
   {
     name: 'Infrastructure',
-    desc: 'Scalable ML systems, distributed training, and experiment tracking.',
-    tools: ['Docker', 'AWS', 'Spark', 'MLflow', 'Kubernetes'],
+    desc: 'Scalable ML systems, distributed training, inference APIs, and experiment tracking.',
+    tools: ['FastAPI', 'Docker', 'AWS', 'Spark', 'MLflow', 'Kubernetes'],
   },
   {
     name: 'Research & Evaluation',
     desc: 'Model benchmarking, evaluation harness design, and academic research methodology.',
-    tools: ['BGE-M3', 'ColBERT', 'FastAPI', 'HuggingFace Evals'],
+    tools: ['HuggingFace Evals', 'ColBERT', 'BGE-M3', 'Benchmarking'],
   },
   {
     name: 'Reinforcement Learning',

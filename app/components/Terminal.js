@@ -79,11 +79,11 @@ const COMMANDS = {
     lines: [
       { t: 'dim', v: 'technical capabilities' },
       { t: 'gap' },
-      { t: 'skill-group', k: 'LLM Systems    ', v: 'PyTorch · HuggingFace · DeBERTa-v3 · LoRA/PEFT · BGE-M3' },
-      { t: 'skill-group', k: 'Retrieval      ', v: 'LangGraph · Qdrant · RAGatouille · ColBERT' },
-      { t: 'skill-group', k: 'Infrastructure ', v: 'Docker · AWS · Spark · MLflow · Kubernetes' },
-      { t: 'skill-group', k: 'RL             ', v: 'FinRL-X · SAC · TD3 · Stable Baselines 3' },
-      { t: 'skill-group', k: 'Languages      ', v: 'Python · Go · TypeScript · React · SQL' },
+      { t: 'skill-group', k: 'LLM Systems      ', v: 'PyTorch · HuggingFace · DeBERTa-v3 · LoRA/PEFT' },
+      { t: 'skill-group', k: 'Retrieval & Agents', v: 'BGE-M3 · ColBERT · Qdrant · RAGatouille · LangGraph' },
+      { t: 'skill-group', k: 'Infrastructure   ', v: 'FastAPI · Docker · AWS · Spark · MLflow · Kubernetes' },
+      { t: 'skill-group', k: 'RL               ', v: 'FinRL-X · SAC · TD3 · Stable Baselines 3' },
+      { t: 'skill-group', k: 'Languages        ', v: 'Python · Go · TypeScript · React · SQL' },
     ],
   }),
 
