@@ -1,7 +1,3 @@
-import Anthropic from '@anthropic-ai/sdk';
-
-const client = new Anthropic();
-
 const SYSTEM = `You are Nirman Taterh's AI portfolio assistant. Answer recruiter and engineer questions about Nirman concisely (2-3 sentences max). Be direct and specific.
 
 ABOUT: AI-native builder, MS Data Science @ NYU (GPA 3.86/4.0), Brooklyn NY. 3+ years shipping production ML systems across NLP, RAG, and recommendation.
@@ -31,20 +27,42 @@ export async function POST(req) {
   const stream = new ReadableStream({
     async start(controller) {
       try {
-        const response = await client.messages.create({
-          model: 'claude-haiku-4-5-20251001',
-          max_tokens: 300,
-          system: SYSTEM,
-          messages,
-          stream: true,
+        const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            model: 'llama-3.1-8b-instant',
+            messages: [{ role: 'system', content: SYSTEM }, ...messages],
+            max_tokens: 300,
+            stream: true,
+          }),
         });
-        for await (const event of response) {
-          if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
-            controller.enqueue(encoder.encode(event.delta.text));
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop() ?? '';
+          for (const line of lines) {
+            if (!line.startsWith('data: ')) continue;
+            const data = line.slice(6);
+            if (data === '[DONE]') continue;
+            try {
+              const text = JSON.parse(data).choices?.[0]?.delta?.content;
+              if (text) controller.enqueue(encoder.encode(text));
+            } catch {}
           }
         }
       } catch {
-        controller.enqueue(encoder.encode('Sorry, something went wrong. Try again.'));
+        controller.enqueue(encoder.encode('Something went wrong. Try again.'));
       }
       controller.close();
     },
