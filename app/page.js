@@ -331,6 +331,10 @@ export default function Home() {
                 GitHub ↗
               </a>
             </div>
+            <p className="text-xs text-zinc-600 mt-5 font-mono flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse inline-block" />
+              ai assistant available — ask anything about me via the chat widget ↘
+            </p>
           </ScrollReveal>
         </div>
       </section>
@@ -344,14 +348,12 @@ export default function Home() {
             <Heading mono="01 — about">Background</Heading>
             <div className="grid md:grid-cols-2 gap-12">
               <p className="text-zinc-400 leading-relaxed">
-                I build production ML systems that start with a research question and end in deployment.
-                Three years across NLP, RAG, recommendation, and RL — always owning the full stack from
-                data to evaluation to shipping.
+                I build production ML and AI systems. Three years across NLP, RAG, recommendation, and RL —
+                always owning the full stack from data to evaluation to shipping.
               </p>
               <p className="text-zinc-400 leading-relaxed">
-                Currently pursuing MS in Data Science at NYU (GPA 3.86/4.0) while independently researching
-                implicit prosodic encoding in language models. I prototype fast, evaluate rigorously, and
-                move from experiment to production without losing fidelity.
+                Currently pursuing MS in Data Science at NYU (GPA 3.86/4.0). I prototype fast, evaluate
+                rigorously, and move from experiment to production without losing fidelity.
               </p>
             </div>
           </ScrollReveal>

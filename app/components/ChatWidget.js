@@ -58,14 +58,19 @@ export default function ChatWidget() {
 
   return (
     <>
-      <button
-        onClick={() => setOpen(o => !o)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-blue-500 hover:bg-blue-600 rounded-full flex items-center justify-center shadow-xl transition-all text-xl"
-        aria-label="Chat with Nirman's AI assistant"
-        title="Ask me anything about Nirman"
-      >
-        {open ? '✕' : '💬'}
-      </button>
+      <div className="fixed bottom-6 right-6 z-50">
+        {!open && (
+          <span className="absolute inset-0 rounded-full bg-blue-500 animate-ping opacity-20" />
+        )}
+        <button
+          onClick={() => setOpen(o => !o)}
+          className="relative w-14 h-14 bg-blue-500 hover:bg-blue-600 rounded-full flex items-center justify-center shadow-xl transition-all text-xl"
+          aria-label="Chat with Nirman's AI assistant"
+          title="Ask me anything about Nirman"
+        >
+          {open ? '✕' : '💬'}
+        </button>
+      </div>
 
       {open && (
         <div className="fixed bottom-24 right-6 z-50 w-80 sm:w-96 bg-gray-950 border border-gray-700 rounded-xl shadow-2xl flex flex-col" style={{ height: 420 }}>
