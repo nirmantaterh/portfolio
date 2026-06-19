@@ -96,7 +96,7 @@ export async function POST(req) {
         }
 
         const res = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:streamGenerateContent?alt=sse&key=${process.env.GEMINI_API_KEY}`,
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=${process.env.GEMINI_API_KEY}`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -113,6 +113,35 @@ export async function POST(req) {
         );
 
         if (!res.ok) {
+          // 429 quota hit — fall back to Groq silently
+          if (res.status === 429 && process.env.GROQ_API_KEY) {
+            const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+              method: 'POST',
+              headers: { Authorization: `Bearer ${process.env.GROQ_API_KEY}`, 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                model: 'llama-3.3-70b-versatile',
+                messages: [{ role: 'system', content: SYSTEM }, ...messages],
+                max_tokens: 500, stream: true, temperature: 0.7,
+              }),
+            });
+            if (groqRes.ok) {
+              const reader = groqRes.body.getReader();
+              const decoder = new TextDecoder();
+              let buf = '';
+              while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                buf += decoder.decode(value, { stream: true });
+                const lines = buf.split('\n'); buf = lines.pop() ?? '';
+                for (const line of lines) {
+                  if (!line.startsWith('data: ')) continue;
+                  const d = line.slice(6); if (d === '[DONE]') continue;
+                  try { const t = JSON.parse(d).choices?.[0]?.delta?.content; if (t) controller.enqueue(encoder.encode(t)); } catch {}
+                }
+              }
+              controller.close(); return;
+            }
+          }
           const err = await res.text();
           controller.enqueue(encoder.encode(`Error ${res.status}: ${err}`));
           controller.close();
