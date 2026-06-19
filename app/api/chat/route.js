@@ -1,3 +1,5 @@
+import { getSupabase } from '../../../lib/supabase';
+
 async function getGitHubRepos() {
   try {
     // next: revalidate uses Next.js built-in CDN cache — survives serverless cold starts
@@ -63,7 +65,8 @@ Currently interviewing. Response within 24h.
 
 export async function POST(req) {
   const body = await req.json();
-  // Sanitize: cap history, enforce roles, strip control chars, limit message length
+  const sessionId = body.sessionId || 'unknown';
+  const intent = body.intent || 'neutral';
   const messages = (body.messages ?? [])
     .slice(-20)
     .filter(m => m.role === 'user' || m.role === 'assistant')
@@ -173,6 +176,17 @@ export async function POST(req) {
         }
       } catch {
         controller.enqueue(encoder.encode('Something went wrong. Try again.'));
+      }
+      // Log user message to Supabase (non-blocking)
+      const lastUser = messages[messages.length - 1];
+      const sb = getSupabase();
+      if (lastUser?.role === 'user' && sb) {
+        sb.from('chat_logs').insert({
+          session_id: sessionId,
+          role: 'user',
+          content: lastUser.content,
+          intent,
+        }).then(() => {});
       }
       controller.close();
     },

@@ -32,6 +32,7 @@ export default function ChatWidget() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [pitchMode, setPitchMode] = useState(false);
+  const sessionId = useRef(typeof crypto !== 'undefined' ? crypto.randomUUID() : Math.random().toString(36));
   const [pitchInput, setPitchInput] = useState('');
   const bottomRef = useRef(null);
 
@@ -71,7 +72,7 @@ export default function ChatWidget() {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: history }),
+        body: JSON.stringify({ messages: history, sessionId: sessionId.current, intent }),
       });
 
       const reader = res.body.getReader();

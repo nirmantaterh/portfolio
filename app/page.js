@@ -5,6 +5,8 @@ import ScrollReveal from './components/ScrollReveal';
 import EmailButton from './components/EmailButton';
 import HeroTyping from './components/HeroTyping';
 import GitHubActivity from './components/GitHubActivity';
+import ViewTracker from './components/ViewTracker';
+import ContactForm from './components/ContactForm';
 
 /* ─── SVG Visualizations ────────────────────────────── */
 
@@ -277,6 +279,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
+      <ViewTracker />
 
       {/* ── Hero ── */}
       <section className="text-white pt-40 pb-32">
@@ -545,6 +548,10 @@ export default function Home() {
                 className="px-4 py-3 border border-zinc-800 hover:border-zinc-600 text-zinc-400 hover:text-white rounded-lg text-sm transition-colors duration-200">
                 ↓ Resume
               </a>
+            </div>
+            <div className="mt-10">
+              <p className="text-sm mb-4" style={{ color: 'var(--fg-muted)' }}>Or send a message directly:</p>
+              <ContactForm />
             </div>
           </ScrollReveal>
         </div>
