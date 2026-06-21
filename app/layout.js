@@ -4,7 +4,7 @@ import BackgroundLayers from "./components/BackgroundLayers";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
-const THEME_VERSION = '3';
+const THEME_VERSION = '4';
 
 export const metadata = {
   title: "Nirman Taterh — AI/ML Engineer",
@@ -25,3 +25,4 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
