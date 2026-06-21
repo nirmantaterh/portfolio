@@ -21,7 +21,7 @@ const TOP_LINKS = [
 
 function EmailIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M4 6h16v12H4z" />
       <path d="m4 7 8 6 8-6" />
     </svg>
@@ -30,7 +30,7 @@ function EmailIcon() {
 
 function GitHubIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
+    <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" fill="currentColor" aria-hidden="true">
       <path d="M12 2.2c-5.4 0-9.8 4.4-9.8 9.8 0 4.3 2.8 8 6.8 9.2.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.5-1.1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 0 1.5 1.1 1.5 1.1.8 1.4 2.1 1 2.7.8.1-.6.3-1 .6-1.2-2.2-.3-4.5-1.1-4.5-4.9 0-1.1.4-2.1 1.1-2.8-.1-.3-.5-1.3.1-2.7 0 0 .9-.3 2.8 1a9.7 9.7 0 0 1 5.1 0c1.9-1.3 2.8-1 2.8-1 .6 1.4.2 2.4.1 2.7.7.7 1.1 1.7 1.1 2.8 0 3.8-2.3 4.6-4.5 4.9.3.2.7.8.7 1.6v2.4c0 .3.2.6.7.5 4-1.2 6.8-4.9 6.8-9.2 0-5.4-4.4-9.8-9.8-9.8Z" />
     </svg>
   );
@@ -38,7 +38,7 @@ function GitHubIcon() {
 
 function LinkedInIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
+    <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" fill="currentColor" aria-hidden="true">
       <path d="M4.5 3.5A1.5 1.5 0 0 1 6 2h12A1.5 1.5 0 0 1 19.5 3.5v17A1.5 1.5 0 0 1 18 22H6a1.5 1.5 0 0 1-1.5-1.5v-17ZM7 9H5v8h2V9Zm-1-1.1A1.2 1.2 0 1 0 6 5.5a1.2 1.2 0 0 0 0 2.4ZM11 9H9v8h2v-4.4c0-1.2.4-2.1 1.5-2.1 1 0 1.5.7 1.5 2v4.5h2v-4.9c0-2.4-1.2-3.6-2.9-3.6-1.3 0-2 .7-2.1 1.1V9Z" />
     </svg>
   );
@@ -46,7 +46,7 @@ function LinkedInIcon() {
 
 function ArxivIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M6 4.5h8.5L18 8v11.5H6z" />
       <path d="M14.5 4.5V8H18" />
       <path d="M8.2 14.2h7.6" />
@@ -57,7 +57,7 @@ function ArxivIcon() {
 
 function SpringerIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M5 6.2A2.2 2.2 0 0 1 7.2 4h9.6A2.2 2.2 0 0 1 19 6.2V18H5z" />
       <path d="M8 8h8" />
       <path d="M8 11h8" />
@@ -69,7 +69,7 @@ function SpringerIcon() {
 
 function ResumeIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M7 3.8h7l4 4V20a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4.8a1 1 0 0 1 1-1z" />
       <path d="M14 3.8V8h4" />
       <path d="M8.5 12h7" />
@@ -80,7 +80,7 @@ function ResumeIcon() {
 
 function KaggleIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M12 3.5a8.5 8.5 0 1 1 0 17a8.5 8.5 0 0 1 0-17z" />
       <path d="M10 7v10" />
       <path d="M10 12h2.2l2.8 5" />
@@ -100,7 +100,7 @@ function TopLink({ href, label, icon: Icon, download = false }) {
       rel={external ? 'noopener noreferrer' : undefined}
       aria-label={label}
       title={label}
-      className="flex h-7 w-7 items-center justify-center rounded-md border border-zinc-800/80 bg-zinc-950/60 text-zinc-400 transition-colors hover:border-zinc-500 hover:text-white"
+      className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-800/80 bg-zinc-950/60 text-zinc-300 transition-colors hover:border-zinc-500 hover:text-white"
     >
       <Icon />
     </a>
@@ -114,7 +114,7 @@ export default function Navbar() {
       style={{ backdropFilter: 'blur(20px)', background: 'var(--nav-bg)' }}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-        <div className="flex items-center gap-2 overflow-x-auto pr-2 scrollbar-hide">
+        <div className="flex items-center gap-3 overflow-x-auto pr-2 scrollbar-hide">
           {TOP_LINKS.map(link => (
             <TopLink key={link.label} {...link} />
           ))}
