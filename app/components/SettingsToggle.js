@@ -1,18 +1,18 @@
 'use client';
 import { useEffect, useState, useRef } from 'react';
 
-const THEME_VERSION = '2';
+const THEME_VERSION = '3';
 const THEMES = [
+  { value: 'paper', label: 'Paper', hint: 'editorial contrast' },
   { value: 'electric', label: 'Electric', hint: 'high contrast' },
   { value: 'midnight', label: 'Midnight', hint: 'subtle dark' },
   { value: 'aurora', label: 'Aurora', hint: 'brighter glow' },
-  { value: 'paper', label: 'Paper', hint: 'light editorial' },
   { value: 'ember', label: 'Ember', hint: 'warm contrast' },
 ];
 
 export default function SettingsToggle() {
   const [open, setOpen] = useState(false);
-  const [theme, setTheme] = useState('electric');
+  const [theme, setTheme] = useState('paper');
   const [cv, setCv] = useState(false);
   const ref = useRef(null);
 
@@ -21,7 +21,7 @@ export default function SettingsToggle() {
     const savedTheme = localStorage.getItem('theme');
     const nextTheme = savedVersion === THEME_VERSION && THEMES.some(option => option.value === savedTheme)
       ? savedTheme
-      : 'electric';
+      : 'paper';
     const savedCv = localStorage.getItem('colorblind') === 'true';
 
     setTheme(nextTheme);
@@ -99,7 +99,7 @@ export default function SettingsToggle() {
                       style={{
                         background:
                           option.value === 'paper'
-                            ? '#d6c7ad'
+                            ? '#2563eb'
                             : option.value === 'ember'
                               ? '#fb923c'
                               : option.value === 'aurora'
@@ -116,7 +116,7 @@ export default function SettingsToggle() {
                       </span>
                     </span>
                   </span>
-                  {active && <span className="text-[10px] uppercase tracking-widest" style={{ color: '#22d3ee' }}>active</span>}
+                  {active && <span className="text-[10px] uppercase tracking-widest" style={{ color: option.value === 'paper' ? '#2563eb' : '#22d3ee' }}>active</span>}
                 </button>
               );
             })}
