@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* ─── CSS Variables (Dark default) ─────────────────── */
+/* ─── CSS Variables (Theme defaults) ─────────────────── */
 :root {
   --bg:        #050505;
   --fg:        #ebebeb;
@@ -16,28 +16,112 @@
   --tag-bg:    #18181b;
   --tag-color: #a1a1aa;
   --input-bg:  #18181b;
-  /* colorblind-safe accent (replaces red) */
+  --aurora-blue: rgba(59,130,246,0.16);
+  --aurora-purple: rgba(139,92,246,0.14);
   --cb-danger: rgba(245,158,11,0.8);
   --cb-danger-stroke: rgba(245,158,11,0.9);
   --cb-danger-line: rgba(245,158,11,0.28);
 }
 
-/* ─── Light Mode ─────────────────────────────────────── */
+/* ─── Theme Presets ─────────────────────────────────── */
+[data-theme="midnight"] {
+  --bg: #05070d;
+  --fg: #eef2ff;
+  --fg-muted: #7c87a8;
+  --fg-subtle: #49506a;
+  --border: rgba(148,163,184,0.10);
+  --nav-bg: rgba(5,7,13,0.82);
+  --card-bg: rgba(255,255,255,0.016);
+  --section-alt-bg: rgba(255,255,255,0.012);
+  --viz-bg: rgba(0,0,0,0.32);
+  --modal-bg: #0a0d16;
+  --chat-bg: #101725;
+  --tag-bg: #182033;
+  --tag-color: #aab6d3;
+  --input-bg: #182033;
+  --aurora-blue: rgba(59,130,246,0.16);
+  --aurora-purple: rgba(139,92,246,0.14);
+  --accent: #60a5fa;
+}
+
+[data-theme="aurora"] {
+  --bg: #040816;
+  --fg: #f4f7ff;
+  --fg-muted: #8ea0c8;
+  --fg-subtle: #566389;
+  --border: rgba(110,168,255,0.12);
+  --nav-bg: rgba(4,8,22,0.76);
+  --card-bg: rgba(255,255,255,0.022);
+  --section-alt-bg: rgba(59,130,246,0.05);
+  --viz-bg: rgba(3,8,24,0.44);
+  --modal-bg: #081124;
+  --chat-bg: #0d1730;
+  --tag-bg: #12213f;
+  --tag-color: #c5d6ff;
+  --input-bg: #13213c;
+  --aurora-blue: rgba(96,165,250,0.30);
+  --aurora-purple: rgba(168,85,247,0.24);
+  --accent: #93c5fd;
+}
+
+[data-theme="paper"] {
+  --bg: #f4efe6;
+  --fg: #1f2937;
+  --fg-muted: #5b6474;
+  --fg-subtle: #8a94a8;
+  --border: rgba(31,41,55,0.10);
+  --nav-bg: rgba(244,239,230,0.86);
+  --card-bg: rgba(255,255,255,0.72);
+  --section-alt-bg: rgba(31,41,55,0.03);
+  --viz-bg: rgba(255,255,255,0.55);
+  --modal-bg: #fffaf3;
+  --chat-bg: #ffffff;
+  --tag-bg: #ebe2d4;
+  --tag-color: #4b5563;
+  --input-bg: #f8f2e8;
+  --aurora-blue: rgba(37,99,235,0.10);
+  --aurora-purple: rgba(168,85,247,0.09);
+  --accent: #2563eb;
+}
+
+[data-theme="ember"] {
+  --bg: #120b0a;
+  --fg: #fff7ed;
+  --fg-muted: #d6a98f;
+  --fg-subtle: #8a6d5f;
+  --border: rgba(251,146,60,0.12);
+  --nav-bg: rgba(18,11,10,0.82);
+  --card-bg: rgba(255,255,255,0.018);
+  --section-alt-bg: rgba(251,146,60,0.05);
+  --viz-bg: rgba(28,14,9,0.42);
+  --modal-bg: #1b110f;
+  --chat-bg: #231311;
+  --tag-bg: #301914;
+  --tag-color: #f1c7aa;
+  --input-bg: #2a1714;
+  --aurora-blue: rgba(251,146,60,0.22);
+  --aurora-purple: rgba(244,114,182,0.14);
+  --accent: #fb923c;
+}
+
 [data-theme="light"] {
-  --bg:        #f4f4f5;
-  --fg:        #18181b;
-  --fg-muted:  #52525b;
+  --bg: #f4f4f5;
+  --fg: #18181b;
+  --fg-muted: #52525b;
   --fg-subtle: #71717a;
-  --border:    rgba(0,0,0,0.08);
-  --nav-bg:    rgba(244,244,245,0.85);
-  --card-bg:   rgba(255,255,255,0.8);
+  --border: rgba(0,0,0,0.08);
+  --nav-bg: rgba(244,244,245,0.85);
+  --card-bg: rgba(255,255,255,0.8);
   --section-alt-bg: rgba(0,0,0,0.025);
-  --viz-bg:    rgba(0,0,0,0.04);
-  --modal-bg:  #f8f9fa;
-  --chat-bg:   #ffffff;
-  --tag-bg:    #e4e4e7;
+  --viz-bg: rgba(0,0,0,0.04);
+  --modal-bg: #f8f9fa;
+  --chat-bg: #ffffff;
+  --tag-bg: #e4e4e7;
   --tag-color: #52525b;
-  --input-bg:  #f0f0f1;
+  --input-bg: #f0f0f1;
+  --aurora-blue: rgba(37,99,235,0.10);
+  --aurora-purple: rgba(168,85,247,0.09);
+  --accent: #2563eb;
 }
 
 [data-theme="light"] body { background: var(--bg); color: var(--fg); }
@@ -68,60 +152,8 @@
 [data-theme="light"] .bg-glow-blue,
 [data-theme="light"] .bg-glow-purple { opacity: 0.15; }
 
-/* Terminal / chat light overrides */
-[data-theme="light"] .terminal-border  { border-color: rgba(0,0,0,0.1) !important; }
-[data-theme="light"] .terminal-divider { border-color: rgba(0,0,0,0.06) !important; }
-[data-theme="light"] .terminal-text    { color: #27272a !important; }
-[data-theme="light"] .terminal-dim     { color: #a1a1aa !important; }
-
-/* ─── Colorblind Mode ─────────────────────────────────
-   Palette: IBM colorblind-safe (Deuteranopia / Protanopia)
-   - Removes ALL red/green pairs
-   - Primary accent: #648FFF (blue-violet)  — replaces blue-500
-   - Warning:        #FFB000 (amber)         — replaces red
-   - Safe positive:  #648FFF (same blue)     — replaces green
-   - Secondary:      #DC267F (magenta)       — replaces purple
-   ─────────────────────────────────────────────────── */
-[data-colorblind="true"] {
-  --cb-blue:    #648FFF;
-  --cb-amber:   #FFB000;
-  --cb-magenta: #DC267F;
-}
-
-/* SVG fraud nodes: red → amber, shape already diamond */
-[data-colorblind="true"] .cb-danger        { fill:   var(--cb-amber) !important; }
-[data-colorblind="true"] .cb-danger-stroke { stroke: var(--cb-amber) !important; }
-[data-colorblind="true"] .cb-danger-line   { stroke: rgba(255,176,0,0.3) !important; }
-
-/* Green status indicators → blue (safe) */
-[data-colorblind="true"] .text-green-400        { color: var(--cb-blue) !important; }
-[data-colorblind="true"] .bg-green-500\/8        { background: rgba(100,143,255,0.10) !important; }
-[data-colorblind="true"] .border-green-500\/25   { border-color: rgba(100,143,255,0.30) !important; }
-[data-colorblind="true"] .bg-green-400           { background-color: var(--cb-blue) !important; }
-
-/* Terminal / UI error text: red → amber */
-[data-colorblind="true"] .text-red-400           { color: var(--cb-amber) !important; }
-
-/* Blue accent (already safe — just brighten for contrast) */
-[data-colorblind="true"] .text-blue-400          { color: var(--cb-blue) !important; }
-[data-colorblind="true"] .text-blue-500          { color: var(--cb-blue) !important; }
-[data-colorblind="true"] .bg-blue-500            { background-color: var(--cb-blue) !important; }
-[data-colorblind="true"] .bg-blue-600            { background-color: var(--cb-blue) !important; }
-[data-colorblind="true"] .bg-blue-500\/20        { background: rgba(100,143,255,0.20) !important; }
-[data-colorblind="true"] .border-blue-500        { border-color: var(--cb-blue) !important; }
-[data-colorblind="true"] .border-blue-500\/40    { border-color: rgba(100,143,255,0.40) !important; }
-
-/* Violet/purple accent → magenta (distinguishable from blue) */
-[data-colorblind="true"] .text-violet-400        { color: var(--cb-magenta) !important; }
-[data-colorblind="true"] .text-violet-500        { color: var(--cb-magenta) !important; }
-[data-colorblind="true"] .bg-violet-500\/4       { background: rgba(220,38,127,0.06) !important; }
-
-/* RL agent line in trading SVG: blue → cyan (#0072B2, colorblind-safe) */
-[data-colorblind="true"] .cb-rl-line             { stroke: #0072B2 !important; }
-[data-colorblind="true"] .cb-rl-fill             { fill: #0072B2 !important; }
-[data-colorblind="true"] .cb-rl-area             { fill: rgba(0,114,178,0.12) !important; }
-
 /* ─── Base ─────────────────────────────────────────── */
+
 html { scroll-behavior: smooth; }
 
 body {
@@ -156,8 +188,8 @@ body {
 
 .aurora-canvas {
   background-image:
-    radial-gradient(circle at 18% 18%, rgba(59,130,246,0.16) 0%, rgba(59,130,246,0.04) 18%, transparent 48%),
-    radial-gradient(circle at 82% 24%, rgba(139,92,246,0.14) 0%, rgba(139,92,246,0.03) 20%, transparent 52%),
+    radial-gradient(circle at 18% 18%, var(--aurora-blue) 0%, rgba(59,130,246,0.04) 18%, transparent 48%),
+    radial-gradient(circle at 82% 24%, var(--aurora-purple) 0%, rgba(139,92,246,0.03) 20%, transparent 52%),
     radial-gradient(circle at 50% 78%, rgba(56,189,248,0.08) 0%, rgba(56,189,248,0.02) 18%, transparent 46%),
     conic-gradient(from 180deg at 50% 50%, rgba(59,130,246,0.10), rgba(139,92,246,0.06), rgba(59,130,246,0.02), rgba(139,92,246,0.08), rgba(59,130,246,0.10));
   background-size: 120% 120%, 110% 110%, 130% 130%, 150% 150%;
@@ -236,4 +268,6 @@ body {
 
 /* ─── Selection ──────────────────────────────────────── */
 ::selection { background: rgba(59,130,246,.22); color: var(--fg); }
+
+
 

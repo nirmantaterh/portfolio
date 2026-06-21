@@ -1,14 +1,21 @@
 'use client';
 import { useEffect, useState, useRef } from 'react';
 
+const THEMES = [
+  { value: 'midnight', label: 'Midnight', hint: 'subtle dark' },
+  { value: 'aurora', label: 'Aurora', hint: 'brighter glow' },
+  { value: 'paper', label: 'Paper', hint: 'light editorial' },
+  { value: 'ember', label: 'Ember', hint: 'warm contrast' },
+];
+
 export default function SettingsToggle() {
   const [open, setOpen] = useState(false);
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState('midnight');
   const [cv, setCv] = useState(false);
   const ref = useRef(null);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'dark';
+    const savedTheme = localStorage.getItem('theme') || 'midnight';
     const savedCv = localStorage.getItem('colorblind') === 'true';
     setTheme(savedTheme);
     setCv(savedCv);
@@ -24,8 +31,7 @@ export default function SettingsToggle() {
     return () => document.removeEventListener('mousedown', onClickOut);
   }, [open]);
 
-  function toggleTheme() {
-    const next = theme === 'dark' ? 'light' : 'dark';
+  function setThemeMode(next) {
     setTheme(next);
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
@@ -56,35 +62,57 @@ export default function SettingsToggle() {
 
       {open && (
         <div
-          className="absolute top-10 right-0 rounded-xl shadow-2xl p-3 w-52 z-50"
+          className="absolute top-10 right-0 rounded-xl shadow-2xl p-3 w-64 z-50"
           style={{ background: 'var(--modal-bg)', border: '1px solid rgba(255,255,255,0.1)' }}
         >
           <p className="text-xs font-mono px-1 mb-2" style={{ color: 'var(--fg-muted)' }}>Display</p>
 
-          {/* Theme row */}
-          <button
-            onClick={toggleTheme}
-            className="w-full flex items-center justify-between px-2 py-2 rounded-lg text-sm transition-colors"
-            style={{ color: 'var(--fg)' }}
-            onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
-            onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
-          >
-            <span className="flex items-center gap-2 text-xs">
-              {theme === 'dark' ? '☾' : '☀'}
-              {theme === 'dark' ? 'Dark mode' : 'Light mode'}
-            </span>
-            {/* Toggle pill */}
-            <span className="relative inline-flex h-4 w-7 items-center rounded-full transition-colors duration-200"
-              style={{ background: theme === 'light' ? '#3b82f6' : 'rgba(255,255,255,0.15)' }}>
-              <span className="inline-block h-3 w-3 rounded-full bg-white shadow transition-transform duration-200"
-                style={{ transform: theme === 'light' ? 'translateX(14px)' : 'translateX(2px)' }} />
-            </span>
-          </button>
+          <div className="space-y-1.5 mb-3">
+            {THEMES.map(option => {
+              const active = theme === option.value;
+              return (
+                <button
+                  key={option.value}
+                  onClick={() => setThemeMode(option.value)}
+                  className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors"
+                  style={{
+                    color: 'var(--fg)',
+                    background: active ? 'rgba(59,130,246,0.1)' : 'transparent',
+                    border: active ? '1px solid rgba(59,130,246,0.25)' : '1px solid transparent',
+                  }}
+                  onMouseEnter={e => { if (!active) e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }}
+                  onMouseLeave={e => { if (!active) e.currentTarget.style.background = 'transparent'; }}
+                >
+                  <span className="flex items-center gap-2 text-xs">
+                    <span
+                      className="inline-block h-2.5 w-2.5 rounded-full"
+                      style={{
+                        background:
+                          option.value === 'paper'
+                            ? '#d6c7ad'
+                            : option.value === 'ember'
+                              ? '#fb923c'
+                              : option.value === 'aurora'
+                                ? '#60a5fa'
+                                : '#3b82f6',
+                      }}
+                    />
+                    <span>
+                      {option.label}
+                      <span className="ml-2 text-[10px] uppercase tracking-widest" style={{ color: 'var(--fg-subtle)' }}>
+                        {option.hint}
+                      </span>
+                    </span>
+                  </span>
+                  {active && <span className="text-[10px] uppercase tracking-widest" style={{ color: '#60a5fa' }}>active</span>}
+                </button>
+              );
+            })}
+          </div>
 
-          {/* Colorblind row */}
           <button
             onClick={toggleCv}
-            className="w-full flex items-center justify-between px-2 py-2 rounded-lg text-sm transition-colors"
+            className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors"
             style={{ color: 'var(--fg)' }}
             onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
             onMouseLeave={e => e.currentTarget.style.background = 'transparent'}

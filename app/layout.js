@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col relative" suppressHydrationWarning>
         {/* Inline script prevents theme flash before hydration */}
-        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme')||'dark';var c=localStorage.getItem('colorblind')==='true';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-colorblind',c?'true':'false');}catch(e){}})();` }} />
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme')||'midnight';var c=localStorage.getItem('colorblind')==='true';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-colorblind',c?'true':'false');}catch(e){}})();` }} />
         <BackgroundLayers />
         <div className="relative z-10 flex flex-col min-h-full w-full">
           {children}
