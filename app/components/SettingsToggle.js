@@ -1,9 +1,9 @@
 'use client';
 import { useEffect, useState, useRef } from 'react';
 
-const THEME_VERSION = '4';
+const THEME_VERSION = '5';
 const THEMES = [
-  { value: 'paper', label: 'Paper', hint: 'full light editorial' },
+  { value: 'paper', label: 'Paper', hint: 'editorial contrast' },
   { value: 'electric', label: 'Electric', hint: 'high contrast' },
   { value: 'midnight', label: 'Midnight', hint: 'subtle dark' },
   { value: 'aurora', label: 'Aurora', hint: 'brighter glow' },
@@ -87,8 +87,8 @@ export default function SettingsToggle() {
                   className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors"
                   style={{
                     color: 'var(--fg)',
-                    background: active ? 'rgba(37,99,235,0.10)' : 'transparent',
-                    border: active ? '1px solid rgba(37,99,235,0.25)' : '1px solid transparent',
+                    background: active ? 'rgba(59,130,246,0.12)' : 'transparent',
+                    border: active ? '1px solid rgba(59,130,246,0.3)' : '1px solid transparent',
                   }}
                   onMouseEnter={e => { if (!active) e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }}
                   onMouseLeave={e => { if (!active) e.currentTarget.style.background = 'transparent'; }}
@@ -116,7 +116,7 @@ export default function SettingsToggle() {
                       </span>
                     </span>
                   </span>
-                  {active && <span className="text-[10px] uppercase tracking-widest" style={{ color: option.value === 'paper' ? '#111827' : '#22d3ee' }}>active</span>}
+                  {active && <span className="text-[10px] uppercase tracking-widest" style={{ color: option.value === 'paper' ? '#2563eb' : '#22d3ee' }}>active</span>}
                 </button>
               );
             })}
@@ -149,4 +149,5 @@ export default function SettingsToggle() {
     </div>
   );
 }
+
 
