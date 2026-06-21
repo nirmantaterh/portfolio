@@ -1,5 +1,13 @@
 import SettingsToggle from './SettingsToggle';
 
+const NAV_ITEMS = [
+  { label: 'Impact', href: '#why-hire-me' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Research', href: '#research' },
+  { label: 'Contact', href: '#contact' },
+];
+
 export default function Navbar() {
   return (
     <nav
@@ -10,9 +18,9 @@ export default function Navbar() {
         <a href="#" className="text-sm font-semibold tracking-widest" style={{ color: 'var(--fg)' }}>NT</a>
         <div className="flex items-center gap-6">
           <div className="flex gap-7 text-sm">
-            {['About', 'Experience', 'Projects', 'Contact'].map(item => (
-              <a key={item} href={`#${item.toLowerCase()}`} className="relative transition-colors duration-200 group nav-link">
-                {item}
+            {NAV_ITEMS.map(item => (
+              <a key={item.label} href={item.href} className="relative transition-colors duration-200 group nav-link">
+                {item.label}
                 <span className="absolute -bottom-1 left-0 h-px w-0 bg-blue-500 group-hover:w-full transition-all duration-300 ease-out" />
               </a>
             ))}

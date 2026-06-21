@@ -147,65 +147,72 @@ const PROJECTS = [
   {
     type: 'NLP Research',
     title: 'Prosodic Encoding in LLMs',
-    desc: 'Investigating whether language models implicitly encode prosodic structure without explicit supervision. Transformer encoder pipeline in PyTorch. Pending publication at ACL-tier venue.',
+    desc: 'Transformer research on whether models encode prosody without explicit supervision. ACL-tier submission in progress.',
     tags: ['PyTorch', 'Transformers', 'NLP'],
     viz: AttentionMapViz,
     vizLabel: 'attention map',
     link: null,
+    paperLinks: [],
   },
   {
     type: 'Systems',
     title: 'Large-Scale Review Trust Modeling',
-    desc: '97.7% recall on 26.7M reviews. Fraud classification pipeline in Python and Spark. Reduced sentiment calibration MAE from 1.47 → 0.46 by fine-tuning DeBERTa-v3 with LoRA.',
+    desc: '26.7M-review fraud and trust modeling system. 97.7% recall, with sentiment MAE down from 1.47 to 0.46 using DeBERTa-v3 + LoRA.',
     tags: ['DeBERTa-v3', 'Spark', 'LoRA'],
     viz: FraudNetworkViz,
     vizLabel: 'fraud detection network',
     link: null,
+    paperLinks: [],
   },
   {
     type: 'Published Paper',
     title: 'FinRL Crypto Trading Agent',
-    desc: 'Published in ICIVC 2021 (Springer). Outperformed benchmark trading strategies by 10%. 14% accuracy gain with FinBERT sentiment analysis pipeline for financial NLP.',
+    desc: 'Springer-published crypto trading agent. Beat benchmark strategies by 10% and added FinBERT sentiment features.',
     tags: ['FinRL-X', 'FinBERT', 'Published'],
     viz: TradingCurveViz,
     vizLabel: 'performance vs baseline',
-    link: 'https://link.springer.com/chapter/10.1007/978-3-031-31164-2_36',
+    link: 'https://arxiv.org/abs/2209.12664',
+    paperLinks: [
+      { label: 'arXiv', href: 'https://arxiv.org/abs/2209.12664' },
+      { label: 'Springer', href: 'https://link.springer.com/chapter/10.1007/978-3-031-31164-2_36' },
+    ],
   },
   {
     type: 'Reinforcement Learning',
     title: 'AI Gaming Platform Optimizer',
-    desc: '+20% in-game engagement, +25% content relevance. RL-based recommendation system using LangGraph tool calls, behavioral signals, and a Kubernetes/Spark simulation framework.',
+    desc: 'RL recommender that lifted engagement 20% and content relevance 25% with LangGraph and Kubernetes simulation.',
     tags: ['SAC/TD3', 'LangGraph', 'Kubernetes'],
     viz: AgentArchViz,
     vizLabel: 'multi-agent architecture',
     link: null,
+    paperLinks: [],
   },
 ];
 
 const CAPABILITIES = [
   {
     name: 'LLM Systems',
-    desc: 'Fine-tuning, alignment, and production deployment of transformer-based models.',
+    desc: 'Fine-tuning, evaluation, and deployment of transformer-based models.',
     tools: ['PyTorch', 'HuggingFace', 'DeBERTa-v3', 'LoRA/PEFT'],
   },
   {
     name: 'Retrieval & Agents',
-    desc: 'Production RAG pipelines, agentic orchestration, embedding models, and vector retrieval at scale.',
+    desc: 'RAG pipelines and agent orchestration for production retrieval workloads.',
     tools: ['BGE-M3', 'ColBERT', 'Qdrant', 'RAGatouille', 'LangGraph'],
   },
   {
     name: 'Infrastructure',
-    desc: 'Scalable ML systems, distributed training, inference APIs, and experiment tracking.',
+    desc: 'Scalable ML systems, inference APIs, and experiment tracking.',
     tools: ['FastAPI', 'Docker', 'AWS', 'Spark', 'MLflow', 'Kubernetes'],
   },
   {
     name: 'Research & Evaluation',
-    desc: 'Model benchmarking, evaluation harness design, and academic research methodology.',
+    desc: 'Benchmark design, error analysis, and evaluation harnesses.',
     tools: ['HuggingFace Evals', 'ColBERT', 'BGE-M3', 'Benchmarking'],
   },
   {
     name: 'Reinforcement Learning',
-    desc: 'RL agents for sequential decision making, reward modeling, and policy optimization.',
+    desc: 'Policy optimization for sequential decision making and recommender-style systems.',
     tools: ['FinRL-X', 'SAC', 'TD3', 'Stable Baselines 3'],
   },
 ];
@@ -273,6 +280,35 @@ function Heading({ children, mono }) {
   );
 }
 
+function IconLink({ href, label, text, download = false }) {
+  const external = !download && !href.startsWith('mailto:') && !href.startsWith('/');
+
+  return (
+    <a
+      href={href}
+      download={download ? '' : undefined}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noopener noreferrer' : undefined}
+      aria-label={label}
+      title={label}
+      className="flex h-9 w-9 items-center justify-center rounded-md border border-zinc-800/80 bg-zinc-950/70 text-[10px] font-semibold uppercase tracking-[0.24em] text-zinc-400 transition-colors hover:border-zinc-600 hover:text-white"
+    >
+      <span className="sr-only">{label}</span>
+      <span aria-hidden="true" className="leading-none">{text}</span>
+    </a>
+  );
+}
+
+const HERO_LINKS = [
+  { label: 'Email Nirman', href: 'mailto:nt2613@nyu.edu?subject=Opportunity%20for%20Nirman%20Taterh', text: '✉' },
+  { label: 'GitHub', href: 'https://github.com/nirmantaterh', text: 'gh' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/nirman-taterh/', text: 'in' },
+  { label: 'arXiv paper', href: 'https://arxiv.org/abs/2209.12664', text: 'arXiv' },
+  { label: 'Springer paper', href: 'https://link.springer.com/chapter/10.1007/978-3-031-31164-2_36', text: 'Sp' },
+  { label: 'Resume', href: '/resume.pdf', text: 'cv', download: true },
+  { label: 'Kaggle', href: 'https://www.kaggle.com/phiesh7w', text: 'kg' },
+];
+
 /* ─── Page ──────────────────────────────────────────── */
 export default function Home() {
   return (
@@ -286,7 +322,7 @@ export default function Home() {
           <ScrollReveal>
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-green-500/25 bg-green-500/8 text-green-400 text-xs mb-8 font-mono">
               <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-              open to ai/ml roles · nyc / remote
+              open to applied scientist / ai/ml / llm roles · nyc / remote
             </span>
           </ScrollReveal>
 
@@ -300,11 +336,13 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal delay={120}>
-            <p className="text-xl text-zinc-400 max-w-2xl leading-relaxed mb-4">
-              Building production AI systems<br />
-              from research to deployment.
+            <p className="text-xl text-zinc-300 max-w-2xl leading-relaxed mb-3">
+              Research-driven engineer shipping production AI systems in NLP, RAG, and evaluation.
             </p>
-            <div className="flex gap-3 flex-wrap mb-10">
+            <p className="text-sm text-zinc-500 max-w-2xl leading-relaxed mb-6">
+              Background spans transformer research, evaluation design, and deployed ML systems across product and research settings.
+            </p>
+            <div className="flex flex-wrap gap-3 mb-10">
               {['NLP', 'RAG', 'Agents', 'RL'].map(tag => (
                 <span key={tag} className="text-xs font-mono text-zinc-500 border border-zinc-800 px-2.5 py-1 rounded-full">
                   {tag}
@@ -314,7 +352,7 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal delay={180}>
-            <div className="flex flex-wrap gap-6 mb-10">
+            <div className="flex flex-wrap gap-6 mb-8">
               {[
                 { stat: '+18%', label: 'model accuracy', where: 'J&J' },
                 { stat: '−20%', label: 'LLM hallucinations', where: 'Miko' },
@@ -329,7 +367,34 @@ export default function Home() {
             </div>
           </ScrollReveal>
 
-          <ScrollReveal delay={240}>
+          <ScrollReveal delay={220}>
+            <div className="flex flex-wrap gap-3 mb-8">
+              <a
+                href="/resume.pdf"
+                download
+                className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-semibold transition-colors duration-200"
+              >
+                Download resume
+              </a>
+              <EmailButton
+                subject="Book a call with Nirman Taterh"
+                body="Hi Nirman, I’d like to book a call to discuss an opportunity."
+                className="px-5 py-2.5 border border-zinc-800 hover:border-zinc-600 text-zinc-400 hover:text-white rounded-lg text-sm transition-colors duration-200"
+              >
+                Book a call
+              </EmailButton>
+              <EmailButton
+                className="px-5 py-2.5 border border-zinc-800 hover:border-zinc-600 text-zinc-400 hover:text-white rounded-lg text-sm transition-colors duration-200"
+              >
+                Email me
+              </EmailButton>
+              <TerminalButton />
+            </div>
+            <div className="flex flex-wrap gap-2 mb-8">
+              {HERO_LINKS.map(link => (
+                <IconLink key={link.label} {...link} />
+              ))}
+            </div>
             <div className="flex flex-wrap gap-3 items-center mb-12">
               {['Johnson & Johnson', 'Miko', 'Paramount'].map(c => (
                 <span key={c} className="text-xs text-zinc-600 border border-zinc-800/80 px-3 py-1.5 rounded font-mono">
@@ -337,22 +402,46 @@ export default function Home() {
                 </span>
               ))}
             </div>
-            <div className="flex flex-wrap gap-3">
-              <a href="/resume.pdf" download className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-semibold transition-colors duration-200">
-                ↓ Resume
-              </a>
-              <TerminalButton />
-              <a href="https://github.com/nirmantaterh" target="_blank" rel="noopener noreferrer"
-                className="px-5 py-2.5 border border-zinc-800 hover:border-zinc-600 text-zinc-400 hover:text-white rounded-lg text-sm transition-colors duration-200">
-                GitHub ↗
-              </a>
-            </div>
             <GitHubActivity />
             <p className="text-xs text-zinc-600 mt-5 font-mono flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse inline-block" />
               ai assistant available — ask anything about me via the chat widget ↘
             </p>
           </ScrollReveal>
+        </div>
+      </section>
+
+      <hr className="section-divider" />
+
+      {/* ── Why Hire Me ── */}
+      <section id="why-hire-me" className="text-white py-20" style={{ background: 'var(--section-alt-bg)' }}>
+        <div className="max-w-6xl mx-auto px-6">
+          <ScrollReveal>
+            <Heading mono="01 — impact">Why Hire Me</Heading>
+          </ScrollReveal>
+          <div className="grid md:grid-cols-3 gap-4">
+            {[
+              {
+                title: 'Research depth',
+                desc: 'I bring research habits into shipping work: clarify the failure mode, build the eval, then iterate the model or system.',
+              },
+              {
+                title: 'Production execution',
+                desc: 'I’ve shipped across J&J, Miko, and Last.fm, so I’m comfortable with real constraints, tradeoffs, and deployment pressure.',
+              },
+              {
+                title: 'Quantified impact',
+                desc: 'My work consistently shows up in metrics: accuracy, recall, throughput, latency, and user engagement.',
+              },
+            ].map((item, i) => (
+              <ScrollReveal key={item.title} delay={i * 80}>
+                <div className="card-lift border border-zinc-800/80 rounded-xl p-5 h-full" style={{ background: 'var(--card-bg)' }}>
+                  <h3 className="text-white font-semibold mb-3">{item.title}</h3>
+                  <p className="text-zinc-500 text-sm leading-relaxed">{item.desc}</p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -474,6 +563,21 @@ export default function Home() {
                         ) : p.title}
                       </h3>
                       <p className="text-zinc-500 text-sm leading-relaxed flex-1 mb-4">{p.desc}</p>
+                      {p.paperLinks?.length ? (
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {p.paperLinks.map(link => (
+                            <a
+                              key={link.label}
+                              href={link.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-3 py-1.5 rounded-md border border-zinc-800/80 bg-zinc-900/70 text-zinc-400 text-xs font-mono transition-colors hover:border-zinc-600 hover:text-white"
+                            >
+                              {link.label} ↗
+                            </a>
+                          ))}
+                        </div>
+                      ) : null}
                       <div className="flex gap-2 flex-wrap">
                         {p.tags.map(tag => (
                           <span key={tag} className="text-xs font-mono text-zinc-500 bg-zinc-900 border border-zinc-800 px-2 py-0.5 rounded">
@@ -493,10 +597,10 @@ export default function Home() {
       <hr className="section-divider" />
 
       {/* ── Currently Exploring ── */}
-      <section className="text-white py-20">
+      <section id="research" className="text-white py-20">
         <div className="max-w-6xl mx-auto px-6">
           <ScrollReveal>
-            <Heading mono="05 — interests">Currently Exploring</Heading>
+            <Heading mono="05 — research">Research Focus</Heading>
           </ScrollReveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {EXPLORING.map((item, i) => (
@@ -523,7 +627,7 @@ export default function Home() {
           <ScrollReveal>
             <Heading mono="06 — contact">Get In Touch</Heading>
             <p className="text-zinc-400 max-w-xl leading-relaxed mb-2">
-              Looking for AI/ML internship or entry-level roles in NYC. Open to hybrid, remote, or on-site.
+              Looking for Applied Scientist, AI/ML Engineer, or LLM Engineer roles. Open to hybrid, remote, or on-site.
             </p>
             <p className="text-xs text-zinc-600 font-mono mb-8 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse inline-block" />
@@ -532,6 +636,13 @@ export default function Home() {
             <div className="flex flex-wrap gap-3 items-center">
               <EmailButton className="px-7 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold text-sm transition-colors duration-200">
                 Email Me
+              </EmailButton>
+              <EmailButton
+                subject="Book a call with Nirman Taterh"
+                body="Hi Nirman, I’d like to book a call to discuss an opportunity."
+                className="px-4 py-3 border border-zinc-800 hover:border-zinc-600 text-zinc-400 hover:text-white rounded-lg text-sm transition-colors duration-200"
+              >
+                Book a call
               </EmailButton>
               {[
                 { label: 'LinkedIn', href: 'https://www.linkedin.com/in/nirman-taterh/' },
@@ -570,3 +681,4 @@ export default function Home() {
     </>
   );
 }
+

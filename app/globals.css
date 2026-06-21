@@ -154,6 +154,51 @@ body {
 .bg-glow-blue   { animation: glow-drift 50s ease-in-out infinite; }
 .bg-glow-purple { animation: glow-drift 65s ease-in-out infinite reverse; }
 
+.aurora-canvas {
+  background-image:
+    radial-gradient(circle at 18% 18%, rgba(59,130,246,0.16) 0%, rgba(59,130,246,0.04) 18%, transparent 48%),
+    radial-gradient(circle at 82% 24%, rgba(139,92,246,0.14) 0%, rgba(139,92,246,0.03) 20%, transparent 52%),
+    radial-gradient(circle at 50% 78%, rgba(56,189,248,0.08) 0%, rgba(56,189,248,0.02) 18%, transparent 46%),
+    conic-gradient(from 180deg at 50% 50%, rgba(59,130,246,0.10), rgba(139,92,246,0.06), rgba(59,130,246,0.02), rgba(139,92,246,0.08), rgba(59,130,246,0.10));
+  background-size: 120% 120%, 110% 110%, 130% 130%, 150% 150%;
+  background-position: 0% 0%, 100% 0%, 50% 100%, 50% 50%;
+  background-repeat: no-repeat;
+  filter: blur(56px) saturate(135%);
+  opacity: 0.55;
+  transform: translate3d(0, 0, 0);
+  will-change: transform, background-position;
+  mix-blend-mode: screen;
+  animation: aurora-shift 42s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-shift {
+  0% {
+    background-position: 0% 0%, 100% 0%, 50% 100%, 50% 50%;
+    transform: scale(1.02) translate3d(-1.5%, -1%, 0);
+  }
+  50% {
+    background-position: 18% 12%, 82% 22%, 46% 82%, 40% 54%;
+    transform: scale(1.08) translate3d(1.5%, 1.25%, 0);
+  }
+  100% {
+    background-position: 0% 0%, 100% 0%, 50% 100%, 50% 50%;
+    transform: scale(1.02) translate3d(-1%, -0.75%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-glow-blue,
+  .bg-glow-purple,
+  .aurora-canvas {
+    animation: none !important;
+  }
+
+  .aurora-canvas {
+    opacity: 0.28;
+    filter: blur(72px) saturate(120%);
+  }
+}
+
 /* ─── Reveal ─────────────────────────────────────────── */
 .reveal {
   opacity: 0;
@@ -191,3 +236,4 @@ body {
 
 /* ─── Selection ──────────────────────────────────────── */
 ::selection { background: rgba(59,130,246,.22); color: var(--fg); }
+

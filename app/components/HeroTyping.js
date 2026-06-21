@@ -2,12 +2,12 @@
 import { useState, useEffect } from 'react';
 
 const ROLES = [
-  'ML/AI Engineer',
-  'LLM Systems Builder',
-  'Agentic Systems Developer',
+  'Applied Scientist',
+  'AI/ML Engineer',
+  'LLM Engineer',
   'Evaluation Infrastructure',
   'Production AI Engineer',
-  'Multi-Agent Systems',
+  'Research-driven engineer',
 ];
 
 export default function HeroTyping() {
