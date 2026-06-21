@@ -36,7 +36,6 @@ export default function ChatWidget() {
   const [pitchInput, setPitchInput] = useState('');
   const bottomRef = useRef(null);
 
-  // Detect visitor intent from referrer
   useEffect(() => {
     const ref = document.referrer || '';
     if (ref.includes('linkedin.com')) setIntent('recruiter');
@@ -44,7 +43,6 @@ export default function ChatWidget() {
     else setIntent('neutral');
   }, []);
 
-  // Set greeting based on intent
   useEffect(() => {
     setMessages([{ role: 'assistant', content: GREETINGS[intent] }]);
   }, [intent]);
@@ -113,7 +111,6 @@ export default function ChatWidget() {
 
   return (
     <>
-      {/* Floating button */}
       <div className="fixed bottom-6 right-6 z-50">
         {!open && (
           <span className="absolute inset-0 rounded-full bg-blue-500 animate-ping opacity-20" />
@@ -127,13 +124,11 @@ export default function ChatWidget() {
         </button>
       </div>
 
-      {/* Chat panel */}
       {open && (
         <div
           className="fixed bottom-24 right-6 z-50 w-80 sm:w-96 rounded-xl shadow-2xl flex flex-col border"
           style={{ height: 480, background: 'var(--modal-bg)', borderColor: 'rgba(128,128,128,0.15)' }}
         >
-          {/* Header */}
           <div className="px-4 py-3 border-b flex items-center gap-2 shrink-0" style={{ borderColor: 'rgba(255,255,255,0.07)' }}>
             <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
             <span className="text-sm font-semibold" style={{ color: 'var(--fg)' }}>Ask about Nirman</span>
@@ -145,7 +140,6 @@ export default function ChatWidget() {
             <span className="ml-auto text-xs font-mono" style={{ color: 'var(--fg-subtle)' }}>Gemini 2.5 Flash · ⌖ Search</span>
           </div>
 
-          {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-3">
             {messages.map((m, i) => (
               <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -162,7 +156,6 @@ export default function ChatWidget() {
               </div>
             ))}
 
-            {/* Suggested chips — appear after every completed assistant message */}
             {!loading && !pitchMode && messages.length > 0 && messages[messages.length - 1].role === 'assistant' && messages[messages.length - 1].content && (
               <div className="space-y-1.5 pt-1">
                 {chips.map((chip, i) => (
@@ -182,7 +175,6 @@ export default function ChatWidget() {
               </div>
             )}
 
-            {/* Pitch mode panel */}
             {pitchMode && (
               <div className="rounded-xl p-3 space-y-2" style={{ background: 'rgba(59,130,246,0.06)', border: '1px solid rgba(59,130,246,0.2)' }}>
                 <p className="text-xs font-mono" style={{ color: '#60a5fa' }}>🎯 Build a custom pitch</p>
@@ -202,7 +194,7 @@ export default function ChatWidget() {
                     style={{ background: '#2563eb', color: '#fff' }}>
                     Generate pitch
                   </button>
-                  <button onClick={() => { setPitchMode(false); setChipsVisible(true); }}
+                  <button onClick={() => setPitchMode(false)}
                     className="text-xs px-3 py-1.5 rounded-lg"
                     style={{ background: 'rgba(255,255,255,0.05)', color: 'var(--fg-muted)' }}>
                     Cancel
@@ -214,7 +206,6 @@ export default function ChatWidget() {
             <div ref={bottomRef} />
           </div>
 
-          {/* Input */}
           <div className="p-3 border-t shrink-0 flex gap-2" style={{ borderColor: 'rgba(255,255,255,0.07)' }}>
             <input
               value={input}

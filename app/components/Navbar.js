@@ -6,6 +6,7 @@ const NAV_ITEMS = [
   { label: 'Projects', href: '#projects' },
   { label: 'Research', href: '#research' },
   { label: 'Contact', href: '#contact' },
+  { label: 'CV', href: '/resume.pdf', download: true },
 ];
 
 const TOP_LINKS = [
@@ -42,20 +43,30 @@ export default function Navbar() {
       className="fixed top-0 w-full z-50 border-b nav-border"
       style={{ backdropFilter: 'blur(20px)', background: 'var(--nav-bg)' }}
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-4">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-2 overflow-x-auto pr-2 scrollbar-hide">
           {TOP_LINKS.map(link => (
             <TopLink key={link.label} {...link} />
           ))}
         </div>
-        <div className="flex items-center gap-4 sm:gap-6 shrink-0">
-          <div className="hidden md:flex gap-7 text-sm">
-            {NAV_ITEMS.map(item => (
-              <a key={item.label} href={item.href} className="relative transition-colors duration-200 group nav-link">
-                {item.label}
-                <span className="absolute -bottom-1 left-0 h-px w-0 bg-blue-500 group-hover:w-full transition-all duration-300 ease-out" />
-              </a>
-            ))}
+        <div className="flex items-center gap-3 md:gap-5 shrink-0 justify-between md:justify-end">
+          <div className="flex items-center gap-3 text-[11px] sm:text-xs md:text-sm uppercase tracking-[0.18em] text-zinc-500 overflow-x-auto pr-2 scrollbar-hide">
+            {NAV_ITEMS.map(item => {
+              const external = !!item.download;
+              return (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  download={item.download ? '' : undefined}
+                  target={external ? '_blank' : undefined}
+                  rel={external ? 'noopener noreferrer' : undefined}
+                  className="relative transition-colors duration-200 group nav-link whitespace-nowrap"
+                >
+                  {item.label}
+                  <span className="absolute -bottom-1 left-0 h-px w-0 bg-blue-500 group-hover:w-full transition-all duration-300 ease-out" />
+                </a>
+              );
+            })}
           </div>
           <SettingsToggle />
         </div>
