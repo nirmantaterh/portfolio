@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState, useRef } from 'react';
 
-const THEME_VERSION = '6';
+const THEME_VERSION = '7';
 const THEMES = [
   { value: 'paper', label: 'Paper', hint: 'editorial contrast' },
   { value: 'electric', label: 'Electric', hint: 'high contrast' },
@@ -149,3 +149,4 @@ export default function SettingsToggle() {
     </div>
   );
 }
+

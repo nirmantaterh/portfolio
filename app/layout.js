@@ -4,7 +4,7 @@ import BackgroundLayers from "./components/BackgroundLayers";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
-const THEME_VERSION = '6';
+const THEME_VERSION = '7';
 
 export const metadata = {
   title: "Nirman Taterh — AI/ML Engineer",
@@ -13,7 +13,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`} suppressHydrationWarning>
+    <html lang="en" data-theme="midnight" style={{ colorScheme: "dark" }} className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col relative" suppressHydrationWarning>
         {/* Inline script prevents theme flash before hydration */}
         <script dangerouslySetInnerHTML={{ __html: `(function(){try{var version='${THEME_VERSION}';var storedVersion=localStorage.getItem('theme-version');var savedTheme=localStorage.getItem('theme');var theme=(storedVersion===version&&savedTheme)?savedTheme:'midnight';var c=localStorage.getItem('colorblind')==='true';localStorage.setItem('theme-version',version);localStorage.setItem('theme',theme);document.documentElement.setAttribute('data-theme',theme);document.documentElement.setAttribute('data-colorblind',c?'true':'false');}catch(e){}})();` }} />
@@ -25,3 +25,4 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
