@@ -47,25 +47,26 @@
 }
 
 [data-theme="midnight"] {
-  --bg: #05070d;
-  --fg: #eef2ff;
-  --fg-muted: #7c87a8;
-  --fg-subtle: #49506a;
-  --border: rgba(148,163,184,0.10);
-  --nav-bg: rgba(5,7,13,0.82);
-  --card-bg: rgba(255,255,255,0.016);
+  --bg: #060709;
+  --fg: #f1f1ee;
+  --fg-muted: #8d9299;
+  --fg-subtle: #5f646b;
+  --border: rgba(255,255,255,0.08);
+  --nav-bg: rgba(6,7,9,0.86);
+  --card-bg: rgba(255,255,255,0.018);
   --section-alt-bg: rgba(255,255,255,0.012);
-  --viz-bg: rgba(0,0,0,0.32);
-  --modal-bg: #0a0d16;
-  --chat-bg: #101725;
-  --tag-bg: #182033;
-  --tag-color: #aab6d3;
-  --input-bg: #182033;
-  --aurora-blue: rgba(59,130,246,0.16);
-  --aurora-purple: rgba(139,92,246,0.14);
-  --aurora-cyan: rgba(34,211,238,0.10);
-  --accent: #60a5fa;
+  --viz-bg: rgba(0,0,0,0.36);
+  --modal-bg: #0b0c0e;
+  --chat-bg: #101113;
+  --tag-bg: #18191b;
+  --tag-color: #b5b8be;
+  --input-bg: #18191b;
+  --aurora-blue: rgba(255,255,255,0.08);
+  --aurora-purple: rgba(255,255,255,0.05);
+  --aurora-cyan: rgba(255,255,255,0.04);
+  --accent: #cfd3da;
 }
+
 
 [data-theme="aurora"] {
   --bg: #040816;
@@ -332,3 +333,37 @@ body {
   box-shadow: 0 0 0 1px rgba(17,24,39,.08), 0 10px 30px rgba(17,24,39,.07), 0 0 24px rgba(30,64,175,.03);
 }
 
+[data-theme="midnight"] body { background: var(--bg); color: var(--fg); }
+[data-theme="midnight"] .text-white { color: #f1f1ee !important; }
+[data-theme="midnight"] .text-zinc-300 { color: #d4d4d8 !important; }
+[data-theme="midnight"] .text-zinc-400 { color: #a1a1aa !important; }
+[data-theme="midnight"] .text-zinc-500 { color: #8d9299 !important; }
+[data-theme="midnight"] .text-zinc-600 { color: #8d9299 !important; }
+[data-theme="midnight"] .text-zinc-700 { color: #8d9299 !important; }
+[data-theme="midnight"] .border-zinc-800,
+[data-theme="midnight"] .border-zinc-800\/80,
+[data-theme="midnight"] .border-zinc-800\/60 { border-color: rgba(255,255,255,0.08) !important; }
+[data-theme="midnight"] .nav-border { border-color: rgba(255,255,255,0.08) !important; }
+[data-theme="midnight"] .section-divider { background: linear-gradient(to right, transparent, rgba(255,255,255,0.08), transparent); }
+[data-theme="midnight"] .bg-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px);
+  background-size: 54px 54px;
+}
+[data-theme="midnight"] .bg-noise { opacity: 0.018; }
+[data-theme="midnight"] .bg-glow-blue,
+[data-theme="midnight"] .bg-glow-purple { opacity: 0.04; }
+[data-theme="midnight"] .aurora-canvas {
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 18%, transparent 42%),
+    radial-gradient(circle at 84% 16%, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 20%, transparent 48%),
+    radial-gradient(circle at 50% 82%, rgba(255,255,255,0.05) 0%, transparent 42%),
+    linear-gradient(135deg, rgba(255,255,255,0.05), rgba(6,7,9,0.0) 50%, rgba(255,255,255,0.02));
+  opacity: 0.28;
+  filter: blur(72px) saturate(100%);
+  mix-blend-mode: screen;
+}
+[data-theme="midnight"] .card-lift:hover {
+  box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 8px 28px rgba(0,0,0,.32), 0 0 22px rgba(255,255,255,.02);
+}

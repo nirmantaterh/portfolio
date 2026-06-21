@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState, useRef } from 'react';
 
-const THEME_VERSION = '5';
+const THEME_VERSION = '6';
 const THEMES = [
   { value: 'paper', label: 'Paper', hint: 'editorial contrast' },
   { value: 'electric', label: 'Electric', hint: 'high contrast' },
@@ -12,7 +12,7 @@ const THEMES = [
 
 export default function SettingsToggle() {
   const [open, setOpen] = useState(false);
-  const [theme, setTheme] = useState('paper');
+  const [theme, setTheme] = useState('midnight');
   const [cv, setCv] = useState(false);
   const ref = useRef(null);
 
@@ -21,7 +21,7 @@ export default function SettingsToggle() {
     const savedTheme = localStorage.getItem('theme');
     const nextTheme = savedVersion === THEME_VERSION && THEMES.some(option => option.value === savedTheme)
       ? savedTheme
-      : 'paper';
+      : 'midnight';
     const savedCv = localStorage.getItem('colorblind') === 'true';
 
     setTheme(nextTheme);
@@ -149,5 +149,3 @@ export default function SettingsToggle() {
     </div>
   );
 }
-
-
