@@ -51,6 +51,18 @@ export default function ChatWidget() {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, pitchMode]);
 
+  useEffect(() => {
+    function onKeyDown(e) {
+      if (e.key === 'Escape') {
+        setOpen(false);
+        setPitchMode(false);
+      }
+    }
+
+    if (open) window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [open]);
+
   async function send(text) {
     const content = text || input.trim();
     if (!content || loading) return;
@@ -227,3 +239,4 @@ export default function ChatWidget() {
     </>
   );
 }
+
