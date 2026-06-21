@@ -13,10 +13,10 @@ const TOP_LINKS = [
   { label: 'Email', href: 'mailto:nt2613@nyu.edu?subject=Opportunity%20for%20Nirman%20Taterh', icon: EmailIcon },
   { label: 'GitHub', href: 'https://github.com/nirmantaterh', icon: GitHubIcon },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/nirman-taterh/', icon: LinkedInIcon },
-  { label: 'arXiv', href: 'https://arxiv.org/abs/2209.12664', text: 'arXiv' },
-  { label: 'Springer', href: 'https://link.springer.com/chapter/10.1007/978-3-031-31164-2_36', text: 'Sp' },
-  { label: 'Resume', href: '/resume.pdf', text: 'cv', download: true },
-  { label: 'Kaggle', href: 'https://www.kaggle.com/phiesh7w', text: 'kg' },
+  { label: 'arXiv', href: 'https://arxiv.org/abs/2209.12664', icon: ArxivIcon },
+  { label: 'Springer', href: 'https://link.springer.com/chapter/10.1007/978-3-031-31164-2_36', icon: SpringerIcon },
+  { label: 'Resume', href: '/resume.pdf', icon: ResumeIcon, download: true },
+  { label: 'Kaggle', href: 'https://www.kaggle.com/phiesh7w', icon: KaggleIcon },
 ];
 
 function EmailIcon() {
@@ -44,7 +44,52 @@ function LinkedInIcon() {
   );
 }
 
-function TopLink({ href, label, text, icon: Icon, download = false }) {
+function ArxivIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M6 4.5h8.5L18 8v11.5H6z" />
+      <path d="M14.5 4.5V8H18" />
+      <path d="M8.2 14.2h7.6" />
+      <path d="M8.2 11.5h5.2" />
+    </svg>
+  );
+}
+
+function SpringerIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M5 6.2A2.2 2.2 0 0 1 7.2 4h9.6A2.2 2.2 0 0 1 19 6.2V18H5z" />
+      <path d="M8 8h8" />
+      <path d="M8 11h8" />
+      <path d="M8 14h5.2" />
+      <path d="M10.8 18v-4" />
+    </svg>
+  );
+}
+
+function ResumeIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M7 3.8h7l4 4V20a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4.8a1 1 0 0 1 1-1z" />
+      <path d="M14 3.8V8h4" />
+      <path d="M8.5 12h7" />
+      <path d="M8.5 15h5.2" />
+    </svg>
+  );
+}
+
+function KaggleIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3.5a8.5 8.5 0 1 1 0 17a8.5 8.5 0 0 1 0-17z" />
+      <path d="M10 7v10" />
+      <path d="M10 12h2.2l2.8 5" />
+      <path d="M13 12l3-5" />
+    </svg>
+  );
+}
+
+function TopLink({ href, label, icon: Icon, download = false }) {
   const external = !download && !href.startsWith('mailto:') && !href.startsWith('/');
 
   return (
@@ -57,13 +102,7 @@ function TopLink({ href, label, text, icon: Icon, download = false }) {
       title={label}
       className="flex h-7 w-7 items-center justify-center rounded-md border border-zinc-800/80 bg-zinc-950/60 text-zinc-400 transition-colors hover:border-zinc-500 hover:text-white"
     >
-      {Icon ? (
-        <Icon />
-      ) : (
-        <span className="text-[9px] font-semibold uppercase tracking-[0.22em]" aria-hidden="true">
-          {text}
-        </span>
-      )}
+      <Icon />
     </a>
   );
 }
