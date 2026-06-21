@@ -18,12 +18,34 @@
   --input-bg:  #18181b;
   --aurora-blue: rgba(59,130,246,0.16);
   --aurora-purple: rgba(139,92,246,0.14);
+  --aurora-cyan: rgba(34,211,238,0.14);
   --cb-danger: rgba(245,158,11,0.8);
   --cb-danger-stroke: rgba(245,158,11,0.9);
   --cb-danger-line: rgba(245,158,11,0.28);
 }
 
 /* ─── Theme Presets ─────────────────────────────────── */
+[data-theme="electric"] {
+  --bg: #03040a;
+  --fg: #f5f7ff;
+  --fg-muted: #8da0c9;
+  --fg-subtle: #59668d;
+  --border: rgba(103,232,249,0.12);
+  --nav-bg: rgba(3,4,10,0.78);
+  --card-bg: rgba(255,255,255,0.02);
+  --section-alt-bg: rgba(34,211,238,0.045);
+  --viz-bg: rgba(5,10,24,0.45);
+  --modal-bg: #09111f;
+  --chat-bg: #0b1326;
+  --tag-bg: #12213e;
+  --tag-color: #c7d8ff;
+  --input-bg: #11203d;
+  --aurora-blue: rgba(34,211,238,0.26);
+  --aurora-purple: rgba(168,85,247,0.22);
+  --aurora-cyan: rgba(59,130,246,0.22);
+  --accent: #67e8f9;
+}
+
 [data-theme="midnight"] {
   --bg: #05070d;
   --fg: #eef2ff;
@@ -41,6 +63,7 @@
   --input-bg: #182033;
   --aurora-blue: rgba(59,130,246,0.16);
   --aurora-purple: rgba(139,92,246,0.14);
+  --aurora-cyan: rgba(34,211,238,0.10);
   --accent: #60a5fa;
 }
 
@@ -61,6 +84,7 @@
   --input-bg: #13213c;
   --aurora-blue: rgba(96,165,250,0.30);
   --aurora-purple: rgba(168,85,247,0.24);
+  --aurora-cyan: rgba(34,211,238,0.18);
   --accent: #93c5fd;
 }
 
@@ -81,6 +105,7 @@
   --input-bg: #f8f2e8;
   --aurora-blue: rgba(37,99,235,0.10);
   --aurora-purple: rgba(168,85,247,0.09);
+  --aurora-cyan: rgba(14,165,233,0.08);
   --accent: #2563eb;
 }
 
@@ -101,6 +126,7 @@
   --input-bg: #2a1714;
   --aurora-blue: rgba(251,146,60,0.22);
   --aurora-purple: rgba(244,114,182,0.14);
+  --aurora-cyan: rgba(251,191,36,0.12);
   --accent: #fb923c;
 }
 
@@ -121,6 +147,7 @@
   --input-bg: #f0f0f1;
   --aurora-blue: rgba(37,99,235,0.10);
   --aurora-purple: rgba(168,85,247,0.09);
+  --aurora-cyan: rgba(14,165,233,0.08);
   --accent: #2563eb;
 }
 
@@ -166,55 +193,55 @@ body {
 /* ─── Background Layers ─────────────────────────────── */
 .bg-grid {
   background-image:
-    linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
-  background-size: 48px 48px;
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 54px 54px;
 }
 
 .bg-noise {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 200px;
-  opacity: 0.025;
+  opacity: 0.022;
 }
 
 @keyframes glow-drift {
-  0%,100% { transform: scale(1) translate(0,0); opacity: .7; }
-  33%      { transform: scale(1.06) translate(2%,-2%); opacity: .9; }
-  66%      { transform: scale(.97) translate(-1%,2%); opacity: .6; }
+  0%,100% { transform: scale(1) translate(0,0); opacity: .75; }
+  33%      { transform: scale(1.08) translate(2%,-2%); opacity: .95; }
+  66%      { transform: scale(.98) translate(-1%,2%); opacity: .62; }
 }
 .bg-glow-blue   { animation: glow-drift 50s ease-in-out infinite; }
 .bg-glow-purple { animation: glow-drift 65s ease-in-out infinite reverse; }
 
 .aurora-canvas {
   background-image:
-    radial-gradient(circle at 18% 18%, var(--aurora-blue) 0%, rgba(59,130,246,0.04) 18%, transparent 48%),
-    radial-gradient(circle at 82% 24%, var(--aurora-purple) 0%, rgba(139,92,246,0.03) 20%, transparent 52%),
-    radial-gradient(circle at 50% 78%, rgba(56,189,248,0.08) 0%, rgba(56,189,248,0.02) 18%, transparent 46%),
-    conic-gradient(from 180deg at 50% 50%, rgba(59,130,246,0.10), rgba(139,92,246,0.06), rgba(59,130,246,0.02), rgba(139,92,246,0.08), rgba(59,130,246,0.10));
-  background-size: 120% 120%, 110% 110%, 130% 130%, 150% 150%;
+    radial-gradient(circle at 14% 18%, var(--aurora-cyan) 0%, rgba(34,211,238,0.06) 18%, transparent 42%),
+    radial-gradient(circle at 82% 18%, var(--aurora-purple) 0%, rgba(139,92,246,0.05) 22%, transparent 50%),
+    radial-gradient(circle at 50% 78%, var(--aurora-blue) 0%, rgba(59,130,246,0.04) 18%, transparent 44%),
+    linear-gradient(120deg, rgba(34,211,238,0.06), rgba(59,130,246,0.00) 35%, rgba(168,85,247,0.05) 68%, rgba(34,211,238,0.00));
+  background-size: 130% 130%, 125% 125%, 140% 140%, 160% 160%;
   background-position: 0% 0%, 100% 0%, 50% 100%, 50% 50%;
   background-repeat: no-repeat;
-  filter: blur(56px) saturate(135%);
-  opacity: 0.55;
+  filter: blur(64px) saturate(150%);
+  opacity: 0.70;
   transform: translate3d(0, 0, 0);
   will-change: transform, background-position;
   mix-blend-mode: screen;
-  animation: aurora-shift 42s ease-in-out infinite alternate;
+  animation: aurora-shift 30s ease-in-out infinite alternate;
 }
 
 @keyframes aurora-shift {
   0% {
     background-position: 0% 0%, 100% 0%, 50% 100%, 50% 50%;
-    transform: scale(1.02) translate3d(-1.5%, -1%, 0);
+    transform: scale(1.03) translate3d(-1.2%, -0.8%, 0);
   }
   50% {
-    background-position: 18% 12%, 82% 22%, 46% 82%, 40% 54%;
-    transform: scale(1.08) translate3d(1.5%, 1.25%, 0);
+    background-position: 18% 12%, 82% 22%, 46% 82%, 38% 54%;
+    transform: scale(1.1) translate3d(1.4%, 1.2%, 0);
   }
   100% {
     background-position: 0% 0%, 100% 0%, 50% 100%, 50% 50%;
-    transform: scale(1.02) translate3d(-1%, -0.75%, 0);
+    transform: scale(1.03) translate3d(-0.8%, -0.6%, 0);
   }
 }
 
@@ -226,8 +253,8 @@ body {
   }
 
   .aurora-canvas {
-    opacity: 0.28;
-    filter: blur(72px) saturate(120%);
+    opacity: 0.32;
+    filter: blur(78px) saturate(125%);
   }
 }
 

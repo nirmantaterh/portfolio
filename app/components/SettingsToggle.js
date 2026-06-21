@@ -2,6 +2,7 @@
 import { useEffect, useState, useRef } from 'react';
 
 const THEMES = [
+  { value: 'electric', label: 'Electric', hint: 'high contrast' },
   { value: 'midnight', label: 'Midnight', hint: 'subtle dark' },
   { value: 'aurora', label: 'Aurora', hint: 'brighter glow' },
   { value: 'paper', label: 'Paper', hint: 'light editorial' },
@@ -10,12 +11,12 @@ const THEMES = [
 
 export default function SettingsToggle() {
   const [open, setOpen] = useState(false);
-  const [theme, setTheme] = useState('midnight');
+  const [theme, setTheme] = useState('electric');
   const [cv, setCv] = useState(false);
   const ref = useRef(null);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'midnight';
+    const savedTheme = localStorage.getItem('theme') || 'electric';
     const savedCv = localStorage.getItem('colorblind') === 'true';
     setTheme(savedTheme);
     setCv(savedCv);
@@ -77,8 +78,8 @@ export default function SettingsToggle() {
                   className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors"
                   style={{
                     color: 'var(--fg)',
-                    background: active ? 'rgba(59,130,246,0.1)' : 'transparent',
-                    border: active ? '1px solid rgba(59,130,246,0.25)' : '1px solid transparent',
+                    background: active ? 'rgba(59,130,246,0.12)' : 'transparent',
+                    border: active ? '1px solid rgba(59,130,246,0.3)' : '1px solid transparent',
                   }}
                   onMouseEnter={e => { if (!active) e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }}
                   onMouseLeave={e => { if (!active) e.currentTarget.style.background = 'transparent'; }}
@@ -94,7 +95,9 @@ export default function SettingsToggle() {
                               ? '#fb923c'
                               : option.value === 'aurora'
                                 ? '#60a5fa'
-                                : '#3b82f6',
+                                : option.value === 'electric'
+                                  ? '#22d3ee'
+                                  : '#3b82f6',
                       }}
                     />
                     <span>
@@ -104,7 +107,7 @@ export default function SettingsToggle() {
                       </span>
                     </span>
                   </span>
-                  {active && <span className="text-[10px] uppercase tracking-widest" style={{ color: '#60a5fa' }}>active</span>}
+                  {active && <span className="text-[10px] uppercase tracking-widest" style={{ color: '#22d3ee' }}>active</span>}
                 </button>
               );
             })}
