@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState, useRef } from 'react';
 
+const THEME_VERSION = '2';
 const THEMES = [
   { value: 'electric', label: 'Electric', hint: 'high contrast' },
   { value: 'midnight', label: 'Midnight', hint: 'subtle dark' },
@@ -16,12 +17,19 @@ export default function SettingsToggle() {
   const ref = useRef(null);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'electric';
+    const savedVersion = localStorage.getItem('theme-version');
+    const savedTheme = localStorage.getItem('theme');
+    const nextTheme = savedVersion === THEME_VERSION && THEMES.some(option => option.value === savedTheme)
+      ? savedTheme
+      : 'electric';
     const savedCv = localStorage.getItem('colorblind') === 'true';
-    setTheme(savedTheme);
+
+    setTheme(nextTheme);
     setCv(savedCv);
-    document.documentElement.setAttribute('data-theme', savedTheme);
+    document.documentElement.setAttribute('data-theme', nextTheme);
     document.documentElement.setAttribute('data-colorblind', savedCv ? 'true' : 'false');
+    localStorage.setItem('theme-version', THEME_VERSION);
+    localStorage.setItem('theme', nextTheme);
   }, []);
 
   useEffect(() => {
@@ -36,6 +44,7 @@ export default function SettingsToggle() {
     setTheme(next);
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
+    localStorage.setItem('theme-version', THEME_VERSION);
   }
 
   function toggleCv() {

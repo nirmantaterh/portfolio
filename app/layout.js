@@ -4,6 +4,7 @@ import BackgroundLayers from "./components/BackgroundLayers";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const THEME_VERSION = '2';
 
 export const metadata = {
   title: "Nirman Taterh — AI/ML Engineer",
@@ -15,7 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col relative" suppressHydrationWarning>
         {/* Inline script prevents theme flash before hydration */}
-        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('theme')||'electric';var c=localStorage.getItem('colorblind')==='true';document.documentElement.setAttribute('data-theme',t);document.documentElement.setAttribute('data-colorblind',c?'true':'false');}catch(e){}})();` }} />
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var version='${THEME_VERSION}';var storedVersion=localStorage.getItem('theme-version');var savedTheme=localStorage.getItem('theme');var theme=(storedVersion===version&&savedTheme)?savedTheme:'electric';var c=localStorage.getItem('colorblind')==='true';localStorage.setItem('theme-version',version);localStorage.setItem('theme',theme);document.documentElement.setAttribute('data-theme',theme);document.documentElement.setAttribute('data-colorblind',c?'true':'false');}catch(e){}})();` }} />
         <BackgroundLayers />
         <div className="relative z-10 flex flex-col min-h-full w-full">
           {children}
