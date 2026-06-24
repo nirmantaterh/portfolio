@@ -141,6 +141,84 @@ function AgentArchViz() {
   );
 }
 
+function RagPipelineViz() {
+  const nodes = [
+    { label: 'Query', sub: '', color: 'rgba(255,255,255,0.5)' },
+    { label: 'BGE-M3', sub: 'hybrid', color: 'rgba(59,130,246,0.85)' },
+    { label: 'Qdrant', sub: 'RRF', color: 'rgba(59,130,246,0.85)' },
+    { label: 'ColBERT', sub: 'rerank', color: 'rgba(139,92,246,0.85)' },
+    { label: 'LLM', sub: 'generate', color: 'rgba(34,197,94,0.8)' },
+  ];
+  const xs = [8, 47, 86, 125, 164];
+  return (
+    <svg viewBox="0 0 200 90" className="w-full h-full opacity-80">
+      <defs>
+        <marker id="arr-r" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
+          <path d="M0,0 L5,2.5 L0,5 Z" fill="rgba(255,255,255,0.2)" />
+        </marker>
+      </defs>
+      <rect x="4" y="22" width="192" height="36" rx="5" fill="none" stroke="rgba(59,130,246,0.1)" strokeWidth="1" strokeDasharray="3,2"/>
+      <text x="100" y="14" textAnchor="middle" fill="rgba(255,255,255,0.15)" fontSize="5" fontFamily="monospace">LangGraph orchestration</text>
+      {nodes.map((n, i) => (
+        <g key={n.label}>
+          <rect x={xs[i]} y={29} width={33} height={18} rx={3}
+            fill="rgba(255,255,255,0.03)" stroke={n.color} strokeWidth={i===0?0.8:1.2} />
+          <text x={xs[i]+16.5} y={41} textAnchor="middle" fill={n.color} fontSize="5.5" fontFamily="monospace">{n.label}</text>
+          {n.sub && <text x={xs[i]+16.5} y={56} textAnchor="middle" fill="rgba(255,255,255,0.2)" fontSize="4.5" fontFamily="monospace">{n.sub}</text>}
+          {i < nodes.length-1 && (
+            <line x1={xs[i]+33} y1={38} x2={xs[i+1]} y2={38} stroke="rgba(255,255,255,0.15)" strokeWidth="1" markerEnd="url(#arr-r)" />
+          )}
+        </g>
+      ))}
+      <text x="100" y="82" textAnchor="middle" fill="rgba(255,255,255,0.15)" fontSize="5" fontFamily="monospace">MLflow · faithfulness gate · FastAPI</text>
+    </svg>
+  );
+}
+
+function OrchidViz() {
+  const agents = ['Goal', 'Planner', 'Executor', 'Critic', 'Controller'];
+  const cx = 100, cy = 52, r = 36;
+  const pts = agents.map((_, i) => {
+    const a = (i / agents.length) * 2 * Math.PI - Math.PI / 2;
+    return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+  });
+  return (
+    <svg viewBox="0 0 200 110" className="w-full h-full opacity-80">
+      <defs>
+        <marker id="arr-o" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
+          <path d="M0,0 L5,2.5 L0,5 Z" fill="rgba(139,92,246,0.5)" />
+        </marker>
+      </defs>
+      {pts.map((p, i) => {
+        const next = pts[(i+1) % pts.length];
+        const dx = next.x - p.x, dy = next.y - p.y;
+        const len = Math.sqrt(dx*dx+dy*dy);
+        const nx = dx/len, ny = dy/len;
+        return (
+          <line key={i} x1={p.x+nx*11} y1={p.y+ny*11} x2={next.x-nx*11} y2={next.y-ny*11}
+            stroke="rgba(139,92,246,0.35)" strokeWidth="1" markerEnd="url(#arr-o)" />
+        );
+      })}
+      {agents.map((label, i) => {
+        const p = pts[i];
+        const isCtrl = label === 'Controller';
+        return (
+          <g key={label}>
+            <circle cx={p.x} cy={p.y} r={11}
+              fill={isCtrl ? 'rgba(139,92,246,0.12)' : 'rgba(59,130,246,0.06)'}
+              stroke={isCtrl ? 'rgba(139,92,246,0.75)' : 'rgba(59,130,246,0.4)'}
+              strokeWidth={isCtrl ? 1.5 : 1} />
+            <text x={p.x} y={p.y+2} textAnchor="middle" fill={isCtrl ? 'rgba(139,92,246,0.9)' : 'rgba(255,255,255,0.5)'} fontSize="4.5" fontFamily="monospace">{label}</text>
+          </g>
+        );
+      })}
+      <circle cx={cx} cy={cy} r={11} fill="rgba(139,92,246,0.05)" stroke="rgba(139,92,246,0.2)" strokeWidth="1" strokeDasharray="2,2" />
+      <text x={cx} y={cy+2} textAnchor="middle" fill="rgba(255,255,255,0.2)" fontSize="4" fontFamily="monospace">state</text>
+      <text x="100" y="102" textAnchor="middle" fill="rgba(255,255,255,0.18)" fontSize="4.5" fontFamily="monospace">adaptive loop · 88 tests · 8/8 benchmark</text>
+    </svg>
+  );
+}
+
 /* ─── Data ──────────────────────────────────────────── */
 
 const PROJECTS = [
@@ -162,6 +240,7 @@ const PROJECTS = [
     viz: FraudNetworkViz,
     vizLabel: 'fraud detection network',
     link: null,
+    ghLink: 'https://github.com/nirmantaterh/review-trust-modeling',
     paperLinks: [],
   },
   {
@@ -185,6 +264,28 @@ const PROJECTS = [
     viz: AgentArchViz,
     vizLabel: 'multi-agent architecture',
     link: null,
+    paperLinks: [],
+  },
+  {
+    type: 'RAG / Systems',
+    title: 'Production RAG Pipeline',
+    desc: 'Agentic RAG pipeline with LangGraph, BGE-M3 hybrid search, Qdrant, and ColBERT reranking. Faithfulness gate with automatic retry, MLflow evaluation tracking. Runs fully local or with any OpenAI-compatible endpoint.',
+    tags: ['LangGraph', 'BGE-M3', 'ColBERT', 'Qdrant'],
+    viz: RagPipelineViz,
+    vizLabel: 'RAG pipeline',
+    link: null,
+    ghLink: 'https://github.com/nirmantaterh/production-rag-pipeline',
+    paperLinks: [],
+  },
+  {
+    type: 'Agents',
+    title: 'Orchid — Multi-Agent Framework',
+    desc: 'Agent orchestration framework that adapts strategy mid-run via confidence tracking, debate panels, and dynamic specialist delegation. 8/8 benchmark across 4 difficulty tiers. No LangChain. Runs fully local via Ollama.',
+    tags: ['Python', 'Ollama', 'Multi-Agent', 'Pydantic'],
+    viz: OrchidViz,
+    vizLabel: 'agent loop',
+    link: null,
+    ghLink: 'https://github.com/nirmantaterh/orchid',
     paperLinks: [],
   },
 ];
@@ -563,9 +664,9 @@ export default function Home() {
                         ) : p.title}
                       </h3>
                       <p className="text-zinc-500 text-sm leading-relaxed flex-1 mb-4">{p.desc}</p>
-                      {p.paperLinks?.length ? (
+                      {(p.paperLinks?.length || p.ghLink) ? (
                         <div className="flex flex-wrap gap-2 mb-4">
-                          {p.paperLinks.map(link => (
+                          {p.paperLinks?.map(link => (
                             <a
                               key={link.label}
                               href={link.href}
@@ -576,6 +677,16 @@ export default function Home() {
                               {link.label} ↗
                             </a>
                           ))}
+                          {p.ghLink && (
+                            <a
+                              href={p.ghLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-3 py-1.5 rounded-md border border-zinc-800/80 bg-zinc-900/70 text-zinc-400 text-xs font-mono transition-colors hover:border-zinc-600 hover:text-white"
+                            >
+                              GitHub ↗
+                            </a>
+                          )}
                         </div>
                       ) : null}
                       <div className="flex gap-2 flex-wrap">
@@ -681,4 +792,5 @@ export default function Home() {
     </>
   );
 }
+
 
